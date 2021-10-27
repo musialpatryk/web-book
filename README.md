@@ -18,4 +18,5 @@ W przypadku nowego projektu:
 - python manage.py migrate - tworzenie migracji, tworzy nowe tabele w bazie
 - python manage.py createsuperuser - tworzy nowego użytkownika
 <br>
+<br>
 Obecnie stworzony user: admin / admin
