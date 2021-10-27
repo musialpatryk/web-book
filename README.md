@@ -11,11 +11,11 @@ Przygotowanie środowiska:
 - file -> settings -> Python Interpreter - wybierz odpowiedni interpreter
 - w zakładce "Edit configuration" w polu Script path ustaw ściężkę na plik manage.py a w Parameters "runserver"
 <br>
-- gdyby coś wam się przypomniało to dodajcie, bo nie pamiętam czy jeszcze jakiś komend używaliśmy
+- gdyby coś wam się przypomniało to dodajcie, bo nie pamiętam czy używaliśmy jeszcze jakiś komend
 <br>
 <br>
-W przypadku nowego projektu:
-- python manage.py migrate - tworzenie migracji, tworzy nowe tabele w bazie
+W przypadku nowego projektu: <br>
+- python manage.py migrate - tworzenie migracji, tworzy nowe tabele w bazie<br>
 - python manage.py createsuperuser - tworzy nowego użytkownika
 <br>
 <br>
