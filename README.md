@@ -1,7 +1,7 @@
 # web-book-api
 
 Przygotowanie środowiska:
-- utwórz folder
+- utwórz folder dla projektu
 - w folderze wykonaj komendę python -m venv venv (python/py - w zależności od zmiennych środowiskowych)
 - aktywuj venv (Linux: source venv/bin/activate; Windows: ./venv/bin/activate)
   (po poprawnej aktywacji powinien pojawić się napis "venv" na początku lini komend)
@@ -14,7 +14,8 @@ Przygotowanie środowiska:
 - gdyby coś wam się przypomniało to dodajcie, bo nie pamiętam czy jeszcze jakiś komend używaliśmy
 <br>
 <br>
-- python manage.py migrate - tworzenie migracji, tworzy nowe tabele w bazie (w przypadku nowego projektu)
-- python manage.py createsuperuser - tworzy nowego użytkownika (w przypadku nowego projektu)
+W przypadku nowego projektu:
+- python manage.py migrate - tworzenie migracji, tworzy nowe tabele w bazie
+- python manage.py createsuperuser - tworzy nowego użytkownika
 <br>
 Obecnie stworzony user: admin / admin
