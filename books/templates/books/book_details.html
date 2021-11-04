@@ -1,0 +1,19 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div class="book-detail">
+    <div class="book">
+        <h2>
+            {{ book.title }}
+        </h2>
+        <p>
+            {{ book.description }}
+        </p>
+        <p>
+            {{ book.publishDate }}
+        </p>
+    </div>
+</div>
+
+
+{% endblock %}
