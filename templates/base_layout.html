@@ -3,27 +3,43 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <title>Base Template</title>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
         <link rel="stylesheet" href="{% static 'style.css' %}">
     </head>
     <body>
-        <header class="wrapper">
-            <h1><a href="{% url 'books:list' %}"><img width="150px" height="150px" src="{% static 'logo-social.png' %}"/></a></h1>
-            <nav>
-                <ul>
-                    <li>
-                        <form class="logout-link" action="{% url 'accounts:logout' %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit">Logout</button>
-                        </form>
-                    </li>
-                </ul>
-            </nav>
-        </header>
-        <div class="wrapper">
+
+     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+      <div class="container">
+        <a class="navbar-brand" href="/">BookWeb</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'books:list' %}">Lista książek</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">O serwisie</a>
+            </li>
+          </ul>
+
+          <form action="{% url 'accounts:logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Logout</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+        <div class="container">
             {% block content %}
             {% endblock %}
         </div>
+
+
+        <script src="{% static 'js/bootstrap.js' %}"></script>
     </body>
 </html>
