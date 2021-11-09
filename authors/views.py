@@ -1,9 +1,6 @@
 from django.shortcuts import render
 from .models import Author
-from django.http import HttpResponse
-from helpers import pagination_helper
-from django.core.paginator import Paginator
-from helpers.pagination_helper import PaginationTool
+from helpers.pagination_tool import PaginationTool
 
 
 def authors_list(request):

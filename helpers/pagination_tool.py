@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from global_settings import pagination_settings
 
 
@@ -34,7 +33,6 @@ class PaginationTool:
         return self.object.__class__.objects.all()[self.offset:self.limit]
 
     def validate_args(self):
-
         if self.page is None or self.limit is None:
             return False
 
