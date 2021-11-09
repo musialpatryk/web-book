@@ -4,9 +4,7 @@ from helpers.pagination_tool import PaginationTool
 
 
 def authors_list(request):
-
-    paginator = PaginationTool(request, Author())
-    return render(request, 'authors_list.html', {'authors': paginator.get_data()})
+    return render(request, 'authors_list.html', {'authors': PaginationTool(Author(), request.GET.get('page'), request.GET.get('limit')).get_data()})
 
 
 def author_details(request, id):
