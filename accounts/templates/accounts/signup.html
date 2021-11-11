@@ -2,15 +2,29 @@
 {% load static %}
 
 {% block content %}
+
     <div class="login-page" xmlns="http://www.w3.org/1999/html">
-        <h1>SignUp</h1>
-        <form class="site-form" action="{% url 'accounts:login' %}" method="post">
+        <h1>Create Account</h1>
+        <form class="site-form" action="{% url 'accounts:signup' %}" method="post">
              {% csrf_token %}
-            <input type="username" name="username" id="sample" placeholder="Enter Username...">
-            <input type="email" name="email" id="email" placeholder="Enter Email...">
-            <input type="password" name="password" id="password" placeholder="Enter Password...">
-            <input type="repassword" name="rePassword" id="rePassword" placeholder="Re-enter Password...">
+<!--            <input type="username" name="username" id="sample" placeholder="Enter Username...">-->
+            {{form.username}}
+<!--            <input type="email" name="email" id="email" placeholder="Enter Email...">-->
+             {{form.email}}
+<!--            <input type="password" name="password" id="password" placeholder="Enter Password...">-->
+            {{form.password1}}
+<!--            <input type="password" name="rePassword" id="rePassword" placeholder="Re-enter Password...">-->
+            {{form.password2}}
             <button type="submit" class="btn">Register Account</button>
         </form>
+
+        {{form.errors}}
+
+        <div class="d-flex justify-content-center links">
+            Already have an account?
+            <a href="{% url 'accounts:login' %}">Login</a>
+        </div>
     </div>
+
 {% endblock %}
+

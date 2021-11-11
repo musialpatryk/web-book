@@ -28,13 +28,13 @@
             </li>
           </ul>
 
-          <form action="{% url 'accounts:login' %}" method="post">
+          <form action="{% url 'accounts:login' %}" method="get">
             {% csrf_token %}
-            {{user}}
+            User: {{user}}
             <button type="submit" class="btn btn-danger">Login</button>
           </form>
 
-          <form action="{% url 'accounts:signup' %}" method="post">
+          <form action="{% url 'accounts:signup' %}" method="get">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger">SignUp</button>
           </form>
@@ -43,6 +43,7 @@
             {% csrf_token %}
             <button type="submit" class="btn btn-danger">Logout</button>
           </form>
+
 
         </div>
       </div>

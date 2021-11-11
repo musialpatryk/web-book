@@ -19,6 +19,14 @@
                     <i class="fab fa-google"></i><span>Google</span>
                 </div>
             </div>
+
+            {% for message in messages %}
+            <p id="messages"> {{message}}</p>
+            {% endfor %}
         </form>
+         <div class="d-flex justify-content-center links">
+            Don't have an account?
+            <a href="{% url 'accounts:signup' %}">Sign Up</a>
+        </div>
     </div>
 {% endblock %}
