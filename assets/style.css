@@ -31,5 +31,5 @@ body{
 
 .login-page{
     width: 550px;
-    height: 550px;
+    min-height: 550px;
 }
