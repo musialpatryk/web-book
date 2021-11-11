@@ -1,10 +1,24 @@
 {% extends 'base_layout.html' %}
+{% load static %}
+
 
 {% block content %}
-    <h1>Log in</h1>
-    <form class="site-form" action="{% url 'accounts:login' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Login">
-    </form>
+    <div class="login-page" xmlns="http://www.w3.org/1999/html">
+        <h1>Login</h1>
+        <form class="site-form" action="{% url 'accounts:login' %}" method="post">
+             {% csrf_token %}
+            <input type="username" name="username" id="sample" placeholder="Enter Username...">
+            <input type="password" name="password" id="sample1" placeholder="Enter Password...">
+            <button type="submit" class="btn">Login</button>
+            <p>or login with</p>
+            <div class="icons">
+                <div>
+                    <i class="fab fa-facebook-square"></i><span>Facebook</span>
+                </div>
+                <div>
+                    <i class="fab fa-google"></i><span>Google</span>
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock %}
