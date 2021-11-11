@@ -22,6 +22,10 @@ body{
 }
 
 /* Navbar styles */
+.brand-name {
+    font-family: var(--secondary-font);
+}
+
 .navbar-login-control {
     display: flex;
     gap: 10px;
