@@ -9,16 +9,16 @@
             <div class="row">
                 <div class="col-10">
                     <h2>
-                        <a class="text-decoration-none link-secondary" href="{% url 'books:details' slug=book.slug %}">
-                            {{ book.title }}
+                        <a class="text-decoration-none link-secondary" href="{% url 'authors:details' slug=author.slug %}">
+                            {{ author.name }} {{ author.surname }}
                         </a>
                     </h2>
                 </div>
                 <div class="col text-end">
-                    <p>{{ book.publishDate|date:"d.m.Y" }}</p>
+                    <p>{{ author.birthDate|date:"d.m.Y" }}</p>
                 </div>
             </div>
-            <p>{{ book.snippet }}</p>
+            <p>{{ author.description }}</p>
         </div>
     </div>
 </div>

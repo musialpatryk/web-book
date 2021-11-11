@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base_layout.html' %}
 
-</body>
-</html>
+{% block content %}
+    <h1 class="text-center mb-5">Autor: {{author.name}} {{author.surname}}</h1>
+{% endblock %}

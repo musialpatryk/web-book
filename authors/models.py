@@ -8,3 +8,4 @@ class Author(models.Model):
     surname = models.CharField(max_length=20)
     description = models.TextField()
     birthDate = models.DateField()
+    slug = models.SlugField()

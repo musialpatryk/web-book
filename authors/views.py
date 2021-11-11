@@ -1,13 +1,14 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .models import Author
 
-
-def book_list(request):
+@login_required(login_url='accounts:login')
+def author_list(request):
     return render(request, 'authors/authors_list.html', {'authors': Author.objects.all()})
 
-
-def book_details(request, id):
-    book = Book.objects.get(id=id)
+@login_required(login_url='accounts:login')
+def author_details(request, slug):
+    author = Author.objects.get(slug=slug)
     # if null === book:
-    return render(request, 'books/book_details.html', {'book': book})
+    return render(request, 'authors/authors_details.html', {'author': author})
 
