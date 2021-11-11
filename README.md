@@ -16,6 +16,8 @@ Przygotowanie środowiska:
   (po poprawnej aktywacji powinien pojawić się napis "venv" na początku lini komend)
 - zainstaluj django - pip install django
 - pip install fontawesome-free 5.15.4
+- pip install django-sslserver
+- pip install django-allauth
 - pobierz projekt z gita w miejscu utworzonego folderu
 - file -> settings -> Python Interpreter - wybierz odpowiedni interpreter
 - w zakładce "Edit configuration" w polu Script path ustaw ściężkę na plik manage.py a w Parameters "runserver" <br>

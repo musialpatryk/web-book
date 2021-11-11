@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^about/$', views.about),
     url(r'^$', views.home),
     url(r'^accounts/', include('accounts.urls')),
+    url(r'^socials/', include('allauth.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
