@@ -8,6 +8,7 @@
         <title>Base Template</title>
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
         <link rel="stylesheet" href="{% static 'style.css' %}">
+        <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
     </head>
     <body>
 
@@ -27,10 +28,23 @@
             </li>
           </ul>
 
+          <form action="{% url 'accounts:login' %}" method="get">
+            {% csrf_token %}
+            User: {{user}}
+            <button type="submit" class="btn btn-danger">Login</button>
+          </form>
+
+          <form action="{% url 'accounts:signup' %}" method="get">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">SignUp</button>
+          </form>
+
           <form action="{% url 'accounts:logout' %}" method="post">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger">Logout</button>
           </form>
+
+
         </div>
       </div>
     </nav>
