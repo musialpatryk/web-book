@@ -3,7 +3,7 @@ from .models import Author
 
 
 def book_list(request):
-    return render(request, 'authors_list.html', {'authors': Author.objects.all()})
+    return render(request, 'authors/authors_list.html', {'authors': Author.objects.all()})
 
 
 def book_details(request, id):

@@ -4,7 +4,7 @@
     <h1 class="text-center mb-5">Lista książek</h1>
     <div class="books">
         {% for book in books %}
-            {% include "./book_snippet.html" with book=book %}
+            {% include "books/book_snippet.html" with book=book %}
         {% endfor %}
     </div>
 {% endblock %}
