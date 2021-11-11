@@ -1,0 +1,24 @@
+<div class="book my-3 card container">
+    <div class="card-body d-flex row">
+        <div class="col-2">
+            <div class="w-100 h-100 bg-dark text-light">
+                <img src="" alt="example photo" style="width: 100%;height: auto"/>
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="row">
+                <div class="col-10">
+                    <h2>
+                        <a class="text-decoration-none link-secondary" href="{% url 'books:details' slug=book.slug %}">
+                            {{ book.title }}
+                        </a>
+                    </h2>
+                </div>
+                <div class="col text-end">
+                    <p>{{ book.publishDate|date:"d.m.Y" }}</p>
+                </div>
+            </div>
+            <p>{{ book.snippet }}</p>
+        </div>
+    </div>
+</div>
