@@ -1,0 +1,10 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+    <h1 class="text-center mb-5">Lista autorów</h1>
+    <div class="books">
+        {% for author in authors %}
+            {% include "authors/author_snippet.html" with author=author %}
+        {% endfor %}
+    </div>
+{% endblock %}
