@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelForm, PasswordInput
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.db import models
 
 
 class CreateUserForm(UserCreationForm):
@@ -25,3 +26,15 @@ class CreateUserForm(UserCreationForm):
             attrs={'class': 'form-control mb-2', 'placeholder': 'Enter Password...'})
         self.fields['password2'].widget = PasswordInput(
             attrs={'class': 'form-control mb-2', 'placeholder': 'Re-enter Password...'})
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    email = models.CharField(max_length=100)
+    address = models.CharField(max_length=200)
+    phone = models.CharField(max_length=50)
+    image = models.ImageField(default='default.png',
+                              upload_to='profile_images')
+
+    def __str__(self):
+        return f'{self.user.username}-Profile'
