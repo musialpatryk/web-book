@@ -1,10 +1,52 @@
 {% extends 'base_layout.html' %}
+{% load static %}
+{% load socialaccount %}
+{% providers_media_js %}
 
 {% block content %}
-    <h1>Log in</h1>
-    <form class="site-form" action="{% url 'accounts:login' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Login">
-    </form>
+    <div class="w-100 d-flex justify-content-center">
+        <div class="login-page card">
+            <div class="card-body d-flex justify-content-center align-items-center">
+                <div class="w-75">
+                    <h1 class="w-100 mb-5 text-center">Login</h1>
+                    <form action="{% url 'accounts:login' %}" method="post">
+                         {% csrf_token %}
+
+                        <div class="messages my-3">
+                            {% for message in messages %}
+                                <div class="alert alert-danger alert-sm my-1" role="alert">
+                                  {{message}}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <input class="form-control mb-2" type="username" name="username" id="sample" placeholder="Enter Username...">
+                        <input class="form-control mb-2" type="password" name="password" id="sample1" placeholder="Enter Password...">
+                        <button class="btn btn-success w-100 mt-2" type="submit">Login</button>
+
+                       <div class="mt-4">
+                            <p>or login with</p>
+                            <div class="gap-1 d-flex justify-content-center">
+                                <a class="btn btn-outline-primary w-50" href="{% provider_login_url "facebook" method="oauth2" %}">
+                                    <i class="fab fa-facebook-square"></i><span class="ms-1">Facebook</span>
+                                </a>
+                                <a class="btn btn-outline-warning w-50" href="{% provider_login_url "google" %}">
+                                    <i class="fab fa-google"></i><span class="ms-1">Google</span>
+                                </a>
+                            </div>
+                       </div>
+                    </form>
+                    <div class="d-flex justify-content-center mt-4">
+                        Don't have an account?
+                        <a class="d-block ms-1 link-success" href="{% url 'accounts:signup' %}">Sign Up</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 {% endblock %}
+
+<!--{% provider_login_url "facebook" method="js_sdk" %}-->
+<!--{% provider_login_url "facebook" method="oauth2" %}-->
+<!--{% provider_login_url "google" %}-->
