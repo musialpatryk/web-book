@@ -30,11 +30,22 @@ class CreateUserForm(UserCreationForm):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    email = models.CharField(max_length=100)
-    address = models.CharField(max_length=200)
-    phone = models.CharField(max_length=50)
+    address = models.CharField(max_length=200, default='None')
+    phone = models.CharField(max_length=50, default='None')
     image = models.ImageField(default='default.png',
                               upload_to='profile_images')
 
     def __str__(self):
         return f'{self.user.username}-Profile'
+
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['phone', 'address', 'image']

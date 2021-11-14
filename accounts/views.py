@@ -3,8 +3,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import Group
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from .models import CreateUserForm
-from .decorators import unauthenticated_user
+from .models import CreateUserForm, UserUpdateForm, ProfileUpdateForm
+from .decorators import unauthenticated_user, allowed_users
+from django.contrib.auth.decorators import login_required
 
 
 @unauthenticated_user
@@ -47,15 +48,29 @@ def logout_view(request):
         return redirect('accounts:login')
 
 
+@login_required(login_url='accounts:login')
+@allowed_users(allowed_roles=['viewer', 'admin'])
 def user_profile_view(request):
-    context = {
-
-    }
-    return render(request, 'accounts/user_profile.html', context)
+    return render(request, 'accounts/user_profile.html')
 
 
+@login_required(login_url='accounts:login')
+@allowed_users(allowed_roles=['viewer', 'admin'])
 def UpdateUser_profile_view(request):
-    context = {
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(
+            request.POST, request.FILES, instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            return redirect('accounts:profile')
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
 
+    context = {
+        'u_form': u_form,
+        'p_form': p_form,
     }
     return render(request, 'accounts/UpdateUser_profile.html', context)
