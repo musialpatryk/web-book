@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .models import Author
 from helpers.pagination_tool import PaginationTool
+from django.http import HttpResponse
 
 @login_required(login_url='accounts:login')
 def authors_list(request):

@@ -40,7 +40,7 @@ class PaginationTool:
         if int(self.page) <= 0 or int(self.limit) <= 0:
             return False
 
-        if self.limit not in pagination_settings.pagination_limits:
+        if int(self.limit) not in pagination_settings.pagination_limits:
             return False
 
         return True
