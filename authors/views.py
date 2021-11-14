@@ -6,7 +6,8 @@ from django.http import HttpResponse
 
 @login_required(login_url='accounts:login')
 def authors_list(request):
-    return render(request, 'authors/authors_list.html', {'authors': PaginationTool(Author(), request.GET.get('page'), request.GET.get('limit')).get_data()})
+    offset, limit = PaginationTool(request.GET.get('page'), request.GET.get('limit')).get_data()
+    return render(request, 'authors/authors_list.html', {'authors': Author.objects.all()[offset:limit]})
 
 @login_required(login_url='accounts:login')
 def author_details(request, slug):

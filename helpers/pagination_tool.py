@@ -5,11 +5,11 @@ from global_settings import pagination_settings
 class PaginationTool:
     page = None
     limit = None
-    object = None
+    # object = None
     offset = None
 
-    def __init__(self, object, page, limit):
-        self.object = object
+    def __init__(self, page, limit):
+        # self.object = object
         self.page = page
         self.limit = limit
 
@@ -22,7 +22,8 @@ class PaginationTool:
 
     def get_data(self):
         self.prepare_data()
-        return self.object.__class__.objects.all()[self.offset:self.limit]
+        return self.offset, self.limit
+        # return self.object.__class__.objects.all()[self.offset:self.limit]
 
     def prepare_data(self):
         if not self.validate_args():
