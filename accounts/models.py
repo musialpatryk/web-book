@@ -58,17 +58,17 @@ class AbstractEntity(models.Model):
     updated = models.DateTimeField(auto_now_add=True)
 
 
-class User(models.Model):
-    AbstractEntity = models.ForeignKey(AbstractEntity, on_delete=models.CASCADE)
-    Email = models.EmailField(unique=True)
-    Username = models.CharField(max_length=20)
-    Password = models.CharField(max_length=20)
-    ROLES = (
-        ("V", "Viewer"),
-        ("E", "Editor"),
-        ("A", "Admin"),
-    )
-    Roles = models.CharField(choices=ROLES, max_length=6)
+# class User(models.Model):
+#     AbstractEntity = models.ForeignKey(AbstractEntity, on_delete=models.CASCADE)
+#     Email = models.EmailField(unique=True)
+#     Username = models.CharField(max_length=20)
+#     Password = models.CharField(max_length=20)
+#     ROLES = (
+#         ("V", "Viewer"),
+#         ("E", "Editor"),
+#         ("A", "Admin"),
+#     )
+#     Roles = models.CharField(choices=ROLES, max_length=6)
 
 
 class Book(models.Model):
