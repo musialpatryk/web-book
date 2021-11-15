@@ -15,7 +15,7 @@ from accounts.models import *
 
 
 class Author(models.Model):
-    AbstractEntity = models.ForeignKey(AbstractEntity, on_delete=models.CASCADE, related_name="abstractEntityAccounts")
+    AbstractEntity = models.ForeignKey(AbstractEntity, on_delete=models.CASCADE, related_name="abstractEntityAuthor")
     Name = models.CharField(max_length=30)
     Genre = models.ManyToManyField(Genre, related_name="genre")
     Books = models.ManyToManyField(Book, related_name="books")
