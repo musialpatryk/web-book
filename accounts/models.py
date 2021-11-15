@@ -3,6 +3,7 @@ from django.forms import ModelForm, PasswordInput
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.db import models
+from accounts.models import *
 
 
 class CreateUserForm(UserCreationForm):
@@ -60,32 +61,32 @@ class AbstractEntity(models.Model):
 class User(models.Model):
     AbstractEntity = models.ForeignKey(AbstractEntity, on_delete=models.CASCADE)
     Email = models.EmailField(unique=True)
-    Username = models.CharField()
-    Password = models.CharField()
+    Username = models.CharField(max_length=20)
+    Password = models.CharField(max_length=20)
     ROLES = (
         ("V", "Viewer"),
         ("E", "Editor"),
         ("A", "Admin"),
     )
-    Roles = models.CharField(choices=ROLES)
+    Roles = models.CharField(choices=ROLES, max_length=6)
 
 
 class Book(models.Model):
     AbstractEntity = models.ForeignKey(AbstractEntity, on_delete=models.CASCADE)
-    Authors = models.ManyToManyField(Author)
-    Title = models.CharField()
+    Authors = models.ManyToManyField("Author")
+    Title = models.CharField(max_length=50)
     Description = models.TextField()
-    Genre = models.ManyToManyField(Genre)
+    Genre = models.ManyToManyField("Genre")
     Rating = models.FloatField()
     Pages = models.IntegerField()
 
 
 class Author(models.Model):
-    AbstractEntity = models.ForeignKey(AbstractEntity, on_delete=models.CASCADE)
-    Name = models.CharField()
-    Genre = models.ManyToManyField(Genre)
+    AbstractEntity = models.ForeignKey(AbstractEntity, on_delete=models.CASCADE, related_name="abstractEntityAccounts")
+    Name = models.CharField(max_length=20)
+    Genre = models.ManyToManyField("Genre")
     Books = models.ManyToManyField(Book)
-    Surname = models.CharField()
+    Surname = models.CharField(max_length=20)
     Description = models.TextField()
     BirthDate = models.DateField()
     Rating = models.FloatField()
@@ -93,8 +94,8 @@ class Author(models.Model):
 
 class Genre(models.Model):
     AbstractEntity = models.ForeignKey(AbstractEntity, on_delete=models.CASCADE)
-    Title = models.CharField()
-    Slug = models.CharField()
+    Title = models.CharField(max_length=30)
+    Slug = models.CharField(max_length=30)
 
 
 class Review(models.Model):
@@ -102,7 +103,7 @@ class Review(models.Model):
     Vote = models.IntegerField()
     Book = models.ForeignKey(Book, on_delete=models.CASCADE)
     User = models.ForeignKey(User, on_delete=models.CASCADE)
-    Review = models.CharField()
+    Review = models.CharField(max_length=30)
     Upvotes = models.IntegerField()
     Downvotes = models.IntegerField()
 
@@ -123,12 +124,12 @@ class BookRequest(models.Model):
         ("R", "Rejected")
     )
     User = models.ForeignKey(User, on_delete=models.CASCADE)
-    Status = models.CharField(choices=STATUS)
+    Status = models.CharField(choices=STATUS, max_length=10)
 
 
 class Series(models.Model):
     AbstractEntity = models.ForeignKey(AbstractEntity, on_delete=models.CASCADE)
-    Name = models.CharField()
+    Name = models.CharField(max_length=30)
     Authors = models.ManyToManyField(Author)
     Book = models.ManyToManyField(Book)
     Description = models.TextField()
