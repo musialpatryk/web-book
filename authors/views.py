@@ -1,10 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .models import Author
+from helpers.pagination_tool import PaginationTool
 
 @login_required(login_url='accounts:login')
-def author_list(request):
-    return render(request, 'authors/authors_list.html', {'authors': Author.objects.all()})
+def authors_list(request):
+    offset, limit = PaginationTool(request.GET.get('page'), request.GET.get('limit')).get_data()
+    return render(request, 'authors/authors_list.html', {'authors': Author.objects.all()[offset:limit]})
 
 @login_required(login_url='accounts:login')
 def author_details(request, slug):
