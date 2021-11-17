@@ -1,0 +1,10 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+    <h1 class="text-center mb-5">Wyszukana książka</h1>
+    <div class="books">
+        {% for book in books %}
+            {% include "books/book_snippet.html" with book=book %}
+        {% endfor %}
+    </div>
+{% endblock %}
