@@ -1,11 +1,20 @@
-from django.db import models
+from authors.models import Author
+from accounts.models import *
+from general.models import AbstractEntity
 
 
-class Book(models.Model):
-    title = models.CharField(max_length=100)
-    slug = models.SlugField()
-    description = models.TextField()
-    publishDate = models.DateTimeField(auto_now_add=True)
+class Genre(AbstractEntity):
+    Title = models.CharField(max_length=30, default="None")
+    Slug = models.CharField(max_length=30, default="None")
+
+
+class Book(AbstractEntity):
+    authors = models.ManyToManyField(Author)
+    title = models.CharField(max_length=50, default="None")
+    description = models.TextField(default="None")
+    genre = models.ManyToManyField(Genre)
+    rating = models.FloatField()
+    pages = models.IntegerField()
 
     # author
 
@@ -14,3 +23,29 @@ class Book(models.Model):
 
     def snippet(self):
         return self.description[:50] + '...'
+
+
+class FavoriteBooks(AbstractEntity):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+# Optional
+
+class BookRequest(Book):
+    STATUS = (
+        ("P", "Pending"),
+        ("A", "Accepted"),
+        ("R", "Rejected")
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.CharField(choices=STATUS, max_length=10, default="None")
+
+
+class Series(AbstractEntity):
+    name = models.CharField(max_length=30, default="None")
+    authors = models.ManyToManyField(Author)
+    book = models.ManyToManyField(Book)
+    description = models.TextField(default="None")
+    rating = models.FloatField()
+
