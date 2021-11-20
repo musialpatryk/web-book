@@ -1,6 +1,7 @@
 from general.models import AbstractEntity
 from django.db import models
 from authors.models import Author
+from django.contrib.auth.models import User
 
 
 class Genre(AbstractEntity):
@@ -13,8 +14,8 @@ class Book(AbstractEntity):
     title = models.CharField(max_length=50, default="None")
     description = models.TextField(default="None")
     genre = models.ManyToManyField(Genre)
-    rating = models.FloatField(5.0)
-    pages = models.IntegerField(default=1)
+    rating = models.FloatField(default=None)
+    pages = models.IntegerField(default=None)
 
     # author
 
@@ -27,13 +28,13 @@ class Book(AbstractEntity):
 
 class FavoriteBooks(AbstractEntity):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Review(AbstractEntity):
     vote = models.IntegerField()
     book = models.ForeignKey("books.Book", on_delete=models.CASCADE)
-    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     review = models.CharField(max_length=30, default="None")
     upvotes = models.IntegerField()
     downvotes = models.IntegerField()
@@ -47,7 +48,7 @@ class BookRequest(Book):
         ("A", "Accepted"),
         ("R", "Rejected")
     )
-    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(choices=STATUS, max_length=10, default="None")
 
 
@@ -56,5 +57,5 @@ class Series(AbstractEntity):
     authors = models.ManyToManyField(Author)
     book = models.ManyToManyField(Book)
     description = models.TextField(default="None")
-    rating = models.FloatField()
+    rating = models.FloatField(default=None)
 

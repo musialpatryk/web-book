@@ -9,4 +9,4 @@ class Author(AbstractEntity):
     surname = models.CharField(max_length=30, default="None")
     description = models.TextField(default="None")
     birthDate = models.DateField()
-    rating = models.FloatField(default=5.0)
+    rating = models.FloatField(default=None)

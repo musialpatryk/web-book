@@ -48,20 +48,9 @@ class UserUpdateForm(forms.ModelForm):
 
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
-        model = Profile2
+        model = Profile
         fields = ['phone', 'address', 'image']
 
-
-# class User(AbstractEntity):
-#     email = models.EmailField(unique=True)
-#     username = models.CharField(max_length=20)
-#     password = models.CharField(max_length=20)
-#     ROLES = (
-#         ("V", "Viewer"),
-#         ("E", "Editor"),
-#         ("A", "Admin"),
-#     )
-#     roles = models.CharField(choices=ROLES, max_length=6)
 
 
 
