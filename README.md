@@ -32,12 +32,26 @@ Każda zmiana to nowy Branch - NIE DODAJEMY DO MAINA!!!
 
 # Tworzenie bazy danych od zera:
 - `python manage.py migrate`
-- `./commands/run-fixtures.sh`
+- `python ./commands/run-fixtures.py`
 
-### Admin user
-W ramach fixtures'ów dodwany jest użytkownik:
+### Użytkownicy
+W ramach fixtures'ów dodawani są użytkownicy:
+
 ```
 Login: admin
 Hasło: admin
-Grupy: 'viewers', 'admin'
+Grupy: 'admin'
 ```
+
+```
+Login: viewer
+Hasło: viewer
+Grupy: 'viewer'
+```
+
+```
+Login: user
+Hasło: user
+Grupy: brak
+```
+
