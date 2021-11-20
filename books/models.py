@@ -13,6 +13,11 @@ class Genre(AbstractEntity):
 
 
 class Book(AbstractEntity):
+    STATUS = (
+        ("P", "Pending"),
+        ("A", "Accepted"),
+        ("R", "Rejected")
+    )
     authors = models.ManyToManyField(Author)
     title = models.CharField(max_length=50, default="None")
     description = models.TextField(default="None")
@@ -21,8 +26,8 @@ class Book(AbstractEntity):
     pages = models.IntegerField(default=None)
     slug = models.SlugField(default="None")
     publishDate = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    status = models.CharField(choices=STATUS, max_length=10, default="None")
 
-    # author
 
     def __str__(self):
         return self.title
@@ -48,13 +53,8 @@ class Review(AbstractEntity):
 # Optional
 
 class BookRequest(Book):
-    STATUS = (
-        ("P", "Pending"),
-        ("A", "Accepted"),
-        ("R", "Rejected")
-    )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    status = models.CharField(choices=STATUS, max_length=10, default="None")
+
 
 
 class Series(AbstractEntity):
