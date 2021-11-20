@@ -28,9 +28,16 @@ Każda zmiana to nowy Branch - NIE DODAJEMY DO MAINA!!!
 - `python manage.py loaddata fixtures/fixture_name` - dodaje do bazy danych dane z wskazanego pliku
 - `python ./commands/run-fixtures.py` - dodaje początkowe dane na podstawie danych z folderu `fixtures/`
 - `pip freeze > requirments.txt` - zapisanie zainstalowanych paczek do pliku `requirments.txt` 
-- `python manage.py shell < commands/clear.py` - czyści bazę danych autorów, książek 
+- `python manage.py shell < commands/clear.py` - czyści bazę danych autorów, książek i userów
 
 #Tworzenie bazy danych od zera:
 - `python manage.py migrate`
-- `python manage.py createsuperuser`
 - `./commands/run-fixtures.sh`
+
+###Admin user
+W ramach fixtures'ów dodwany jest użytkownik:
+```
+Login: admin
+Hasło: admin
+Grupy: 'viewers', 'admin'
+```
