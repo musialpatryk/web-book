@@ -1,9 +1,9 @@
+from books.models import AbstractEntity
 from django.db import models
 from django import forms
 from django.forms import ModelForm, PasswordInput
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from books.models import AbstractEntity
 
 
 class CreateUserForm(UserCreationForm):
@@ -48,29 +48,21 @@ class UserUpdateForm(forms.ModelForm):
 
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
-        model = Profile
+        model = Profile2
         fields = ['phone', 'address', 'image']
 
 
-class User(AbstractEntity):
-    email = models.EmailField(unique=True)
-    username = models.CharField(max_length=20)
-    password = models.CharField(max_length=20)
-    ROLES = (
-        ("V", "Viewer"),
-        ("E", "Editor"),
-        ("A", "Admin"),
-    )
-    roles = models.CharField(choices=ROLES, max_length=6)
+# class User(AbstractEntity):
+#     email = models.EmailField(unique=True)
+#     username = models.CharField(max_length=20)
+#     password = models.CharField(max_length=20)
+#     ROLES = (
+#         ("V", "Viewer"),
+#         ("E", "Editor"),
+#         ("A", "Admin"),
+#     )
+#     roles = models.CharField(choices=ROLES, max_length=6)
 
-
-class Review(AbstractEntity):
-    vote = models.IntegerField()
-    book = models.ForeignKey("books.Book", on_delete=models.CASCADE)
-    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
-    review = models.CharField(max_length=30, default="None")
-    upvotes = models.IntegerField()
-    downvotes = models.IntegerField()
 
 
 

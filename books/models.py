@@ -1,6 +1,6 @@
-from authors.models import Author
-from accounts.models import *
 from general.models import AbstractEntity
+from django.db import models
+from authors.models import Author
 
 
 class Genre(AbstractEntity):
@@ -13,8 +13,8 @@ class Book(AbstractEntity):
     title = models.CharField(max_length=50, default="None")
     description = models.TextField(default="None")
     genre = models.ManyToManyField(Genre)
-    rating = models.FloatField()
-    pages = models.IntegerField()
+    rating = models.FloatField(5.0)
+    pages = models.IntegerField(default=1)
 
     # author
 
@@ -27,7 +27,16 @@ class Book(AbstractEntity):
 
 class FavoriteBooks(AbstractEntity):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
+
+
+class Review(AbstractEntity):
+    vote = models.IntegerField()
+    book = models.ForeignKey("books.Book", on_delete=models.CASCADE)
+    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
+    review = models.CharField(max_length=30, default="None")
+    upvotes = models.IntegerField()
+    downvotes = models.IntegerField()
 
 
 # Optional
@@ -38,7 +47,7 @@ class BookRequest(Book):
         ("A", "Accepted"),
         ("R", "Rejected")
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
     status = models.CharField(choices=STATUS, max_length=10, default="None")
 
 
