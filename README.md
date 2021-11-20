@@ -1,59 +1,36 @@
-# web-book-api
+# Webbook
 
-#Poradnik:
-https://www.youtube.com/playlist?list=PL4cUxeGkcC9ib4HsrXEYpQnTOTZE1x0uc
+##Info
+Każda zmiana to nowy Branch - NIE DODAJEMY DO MAINA!!!
 
-#Info
-Każda zmiana to nowy Branch <br>
-NIE DODAJEMY DO MAINA!!!
+###Poradniki:
+- https://www.youtube.com/playlist?list=PL4cUxeGkcC9ib4HsrXEYpQnTOTZE1x0uc
 
+#Konfiguracja:
 
-#Instrukcaj
-Przygotowanie środowiska:
-- utwórz folder dla projektu
-- w folderze wykonaj komendę python -m venv venv (python/py - w zależności od zmiennych środowiskowych)
-- aktywuj venv (Linux: source venv/bin/activate; Windows: ./venv/bin/activate) <br>
-  (po poprawnej aktywacji powinien pojawić się napis "venv" na początku lini komend)
-- zainstaluj django - pip install django
-- pip install fontawesome-free 5.15.4
-- pip install django-sslserver
-- pip install django-allauth
-- python -m pip install Pillow
-- pip install django-crispy-forms
-- pobierz projekt z gita w miejscu utworzonego folderu
-- file -> settings -> Python Interpreter - wybierz odpowiedni interpreter
-- w zakładce "Edit configuration" w polu Script path ustaw ściężkę na plik manage.py a w Parameters "runserver" <br>
-- gdyby coś wam się przypomniało to dodajcie, bo nie pamiętam czy używaliśmy jeszcze jakiś komend <br><br>
+##Tworzenie środowiska
+1. utwórz folder dla projektu
+2. w folderze wykonaj komendę(`python.py`/`python3` - w zależności od zmiennych środowiskowych):
+   - `python -m venv venv`
+3. Aktywuj wirtualne środowisko (po poprawnej aktywacji powinien pojawić się napis `venv` na początku lini komend):
+   - Linux: `source venv/bin/activate` 
+   - Windows: `./venv/bin/activate`.
+4. Zainstaluj zależności - `pip install -r requirments.txt`.
+5. Sklonuj projekt z gita w miejscu utworzonego folderu.
+   - file -> settings -> Python Interpreter - wybierz odpowiedni interpreter
+   - w zakładce "Edit configuration" w polu Script path ustaw ściężkę na plik manage.py a w Parameters "runserver" <br>
+   - gdyby coś wam się przypomniało to dodajcie, bo nie pamiętam czy używaliśmy jeszcze jakiś komend <br><br>
+6. Dodaj dane do bazy danych - patrz "Tworzenie bazy danych od zera"
 
-W przypadku nowego projektu: <br>
-- python manage.py migrate - tworzenie migracji, tworzy nowe tabele w bazie<br>
-- python manage.py createsuperuser - tworzy nowego użytkownika
-<br><br>
+### Przydatne komendy:
+- `python manage.py migrate` - tworzenie migracji, tworzy nowe tabele w bazie
+- `python manage.py createsuperuser` - tworzy nowego super użytkownika
+- `python manage.py loaddata fixtures/fixture_name` - dodaje do bazy danych dane z wskazanego pliku
+- `python ./commands/run-fixtures.py` - dodaje początkowe dane na podstawie danych z folderu `fixtures/`
+- `pip freeze > requirments.txt` - zapisanie zainstalowanych paczek do pliku `requirments.txt` 
+- `python manage.py shell < commands/clear.py` - czyści bazę danych autorów, książek 
 
-Obecnie stworzony user: admin / admin
-
-
-pip freeze > requirments.txt
-pip install -r requirments.txt
-
-
-
-Jeżeli chcecie aby każdy miał ten sam danych podstawowych, trzeba zaimportować te seedy.
-Najpierw czyścimy obecne modele / później wczytujemy z pliku dane
-- python manage.py shell
-- from authors.models import Author
-- Author.objects.all().delete()
-
-- from books.models import Book
-- Book.objects.all().delete()
-
-- python3 manage.py migrate
-- fixtures=$(ls seed/)
-- while IFS= read -r fixture; do
--    echo -n "Seeding "
--    echo $fixture
--    python3 manage.py loaddata seed/$fixture
-- done <<< "$fixtures"
-
-- lub pojedyńczo
-- python3 manage.py loaddata seed/seed_name
+#Tworzenie bazy danych od zera:
+- `python manage.py migrate`
+- `python manage.py createsuperuser`
+- `./commands/run-fixtures.sh`
