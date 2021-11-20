@@ -5,8 +5,11 @@ from django.contrib.auth.models import User
 
 
 class Genre(AbstractEntity):
-    Title = models.CharField(max_length=30, default="None")
-    Slug = models.CharField(max_length=30, default="None")
+    genreName = models.CharField(max_length=30, default="None")
+    slug = models.CharField(max_length=30, default="None")
+
+    def __str__(self):
+        return self.genreName
 
 
 class Book(AbstractEntity):
@@ -16,6 +19,8 @@ class Book(AbstractEntity):
     genre = models.ManyToManyField(Genre)
     rating = models.FloatField(default=None)
     pages = models.IntegerField(default=None)
+    slug = models.SlugField(default="None")
+    publishDate = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     # author
 
