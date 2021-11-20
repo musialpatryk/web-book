@@ -1,8 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .models import Book
-# from ..accounts.decorators import allowed_users, unauthenticated_user
-from .decorators import allowed_users, admin_only
+from accounts.decorators import allowed_users, unauthenticated_user, admin_only
 
 
 @login_required(login_url='accounts:login')
