@@ -35,3 +35,25 @@ Obecnie stworzony user: admin / admin
 
 pip freeze > requirments.txt
 pip install -r requirments.txt
+
+
+
+Jeżeli chcecie aby każdy miał ten sam danych podstawowych, trzeba zaimportować te seedy.
+Najpierw czyścimy obecne modele / później wczytujemy z pliku dane
+- python manage.py shell
+- from authors.models import Author
+- Author.objects.all().delete()
+
+- from books.models import Book
+- Book.objects.all().delete()
+
+- python3 manage.py migrate
+- fixtures=$(ls seed/)
+- while IFS= read -r fixture; do
+-    echo -n "Seeding "
+-    echo $fixture
+-    python3 manage.py loaddata seed/$fixture
+- done <<< "$fixtures"
+
+- lub pojedyńczo
+- python3 manage.py loaddata seed/seed_name
