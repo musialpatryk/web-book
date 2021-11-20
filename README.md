@@ -1,14 +1,14 @@
 # Webbook
 
-##Info
+## Info
 Każda zmiana to nowy Branch - NIE DODAJEMY DO MAINA!!!
 
-###Poradniki:
+### Poradniki:
 - https://www.youtube.com/playlist?list=PL4cUxeGkcC9ib4HsrXEYpQnTOTZE1x0uc
 
-#Konfiguracja:
+# Konfiguracja:
 
-##Tworzenie środowiska
+## Tworzenie środowiska
 1. utwórz folder dla projektu
 2. w folderze wykonaj komendę(`python.py`/`python3` - w zależności od zmiennych środowiskowych):
    - `python -m venv venv`
@@ -30,11 +30,11 @@ Każda zmiana to nowy Branch - NIE DODAJEMY DO MAINA!!!
 - `pip freeze > requirments.txt` - zapisanie zainstalowanych paczek do pliku `requirments.txt` 
 - `python manage.py shell < commands/clear.py` - czyści bazę danych autorów, książek i userów
 
-#Tworzenie bazy danych od zera:
+# Tworzenie bazy danych od zera:
 - `python manage.py migrate`
 - `./commands/run-fixtures.sh`
 
-###Admin user
+### Admin user
 W ramach fixtures'ów dodwany jest użytkownik:
 ```
 Login: admin
