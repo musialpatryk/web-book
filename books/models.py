@@ -52,11 +52,6 @@ class Review(AbstractEntity):
 
 # Optional
 
-class BookRequest(Book):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-
-
 class Series(AbstractEntity):
     name = models.CharField(max_length=30, default="None")
     authors = models.ManyToManyField(Author)
