@@ -1,11 +1,13 @@
 from django.conf.urls import url
-from django.urls import include
 from . import views
 
 app_name = 'books'
-
 urlpatterns = [
     url(r'^$', views.book_list, name="list"),
     url(r'^create/$', views.book_create, name="create"),
+    url(r'^requests/accept$', views.book_accept, name="accept"),
+    url(r'^requests/reject$', views.book_reject, name="reject"),
+    url(r'^requests/$', views.book_requests, name="requests"),
     url(r'^(?P<slug>[\w-]+)/$', views.book_details, name="details"),
 ]
+

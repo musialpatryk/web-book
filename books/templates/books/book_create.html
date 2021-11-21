@@ -1,7 +1,15 @@
 {% extends 'base_layout.html' %}
 
 {% block content %}
-    <div class="create-book">
-        <h2>Create new book</h2>
-    </div>
+    <h1 class="text-center mb-5">Dodaj nową książke</h1>
+    <form method="post" action="{% url 'books:create' %}">
+        {% csrf_token %}
+        {{form.title}}
+
+        {{form.author}}
+        {{form.genre}}
+
+        {{form.description}}
+        <button type="submit" class="btn btn-success">Zgłoś</button>
+    </form>
 {% endblock %}
