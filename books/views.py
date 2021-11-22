@@ -34,6 +34,9 @@ def search_book(request):
     if Book.objects.filter(title=name).exists():
         book = Book.objects.filter(title=name)
         return render(request, 'books/book_search.html', {'books': book})
+    elif Book.objects.filter(author=name).exists():
+        book = Book.objects.filter(author=name)
+        return render(request, 'books/book_search.html', {'books': book})
     else:
         book = Book.objects.all()
         return render(request, 'books/book_search.html', {'books': book})
