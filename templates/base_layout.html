@@ -29,6 +29,14 @@
             <li class="nav-item">
               <a class="nav-link" href="/about">O serwisie</a>
             </li>
+              <li class="nav-item">
+                  <a class="nav-link">
+                      <form action="{% url 'books:search' %}" method="get">
+                          <input name="title" type="text" placeholder="Search..."/>
+                          <input type="submit" value="Szukaj" />
+                      </form>
+                  </a>
+              </li>
               {% if request.user.is_staff %}
               <li class="nav-item">
               <a class="nav-link" href="#">Test upraw admina</a>
