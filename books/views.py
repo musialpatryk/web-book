@@ -86,3 +86,19 @@ def book_reject(request):
         book.save()
 
     return HttpResponseRedirect(reverse('books:requests'))
+
+
+@login_required(login_url='accounts:login')
+@allowed_users(allowed_roles=['viewer', 'admin'])
+def search_book(request):
+    book_get = request.GET
+    name = book_get.get("title")
+    if Book.objects.filter(title__contains=name).exists():
+        book = Book.objects.filter(title__contains=name)
+        return render(request, 'books/book_search.html', {'books': book})
+    elif Book.objects.filter(authors__name__contains=name).exists():
+        book = Book.objects.filter(authors__name__contains=name)
+        return render(request, 'books/book_search.html', {'books': book})
+    else:
+        books = Book.objects.all().order_by('publishDate')
+        return render(request, 'books/book_list.html', {'books': books})

@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^requests/reject$', views.book_reject, name="reject"),
     url(r'^requests/$', views.book_requests, name="requests"),
     url(r'^(?P<slug>[\w-]+)/$', views.book_details, name="details"),
+    url('search/<string:title>/', views.search_book, name='search'),
 ]
 
