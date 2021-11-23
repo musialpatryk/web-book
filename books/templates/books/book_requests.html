@@ -1,0 +1,28 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+    <h1 class="text-center mb-5">Książki czekające na akceptacje</h1>
+        {% if not forms %}
+            <h3>Brak nowych zgłoszeń</h3>
+        {% endif %}
+
+        {% for form in forms %}
+            <div class="d-flex">
+                <div class="w-75">
+                {% include "books/book_snippet.html" with book=form.book %}
+                </div>
+                <div class="w-25 my-3 d-flex justify-content-around align-items-center" style="flex-direction: column">
+                    <form method="post" action="{% url 'books:accept' %}">
+                        {% csrf_token %}
+                        {{form.book_id}}
+                        <button type="submit" class="btn btn-success" style="width: 100px;">Zaakceptuj</button>
+                    </form>
+                    <form method="post" action="{% url 'books:reject' %}">
+                        {% csrf_token %}
+                        {{form.book_id}}
+                        <button type="submit" class="btn btn-danger" style="width: 100px;">Odrzuć</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+{% endblock %}
