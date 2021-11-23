@@ -22,3 +22,19 @@ def book_details(request, slug):
 @admin_only
 def book_create(request):
     return render(request, 'books/book_create.html')
+
+
+@login_required(login_url='accounts:login')
+@allowed_users(allowed_roles=['viewer', 'admin'])
+def search_book(request):
+    book_get = request.GET
+    name = book_get.get("title")
+    if Book.objects.filter(title__contains=name).exists():
+        book = Book.objects.filter(title__contains=name)
+        return render(request, 'books/book_search.html', {'books': book})
+    elif Book.objects.filter(authors__name__contains=name).exists():
+        book = Book.objects.filter(authors__name__contains=name)
+        return render(request, 'books/book_search.html', {'books': book})
+    else:
+        books = Book.objects.all().order_by('publishDate')
+        return render(request, 'books/book_list.html', {'books': books})
