@@ -1,10 +1,123 @@
 {% extends "base_layout.html" %}
 
 {% block content %}
-<div class="card">
-    <h1 class="card-header">About title</h1>
-    <div class="card-body">
-        <p>About content.</p>
+
+<div class="content">
+    <div class="card">
+        <div class="card-header" style="text-align: center;">
+             <h1>About Project:</h1>
+        </div>
+        <div class="card-body">
+            <h3 class="card-title">BookWeb App</h3>
+            <p class="card-text">
+                BookWeb – Serwis internetowy poświęcony książką. Serwis umożliwia dodawanie, ocen oraz recenzji książek. Serwis jest zbiorem wszystkich książek, dzięki czemu internauci
+                są w stanie szybko przeczytać "zajawkę" i zobaczyć czy chcą wgłębić się w powieść.
+            </p>
+            <p class="card-text">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
+                desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has
+                a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web
+                page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved
+                over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+            </p>
+        </div>
     </div>
+</div>
+<br><br>
+
+<div class="card">
+    <div class="card-header" style="text-align: center;">
+        Application Created by:
+    </div>
+        <div class="card-body">
+             <div class="row">
+                 <div class="col-sm-3">
+                    <div class="card-body" style="margin: 10px; text-align:center;">
+                        <h5 class="card-title">Dawid Rusiłowski</h5>
+                        <p class="card-text">Some personal description.</p>
+                        <a href="https://github.com/NURSAA" class="card-link">Git</a>
+                    </div>
+                 </div>
+                 <div class="col-sm-3">
+                    <div class="card-body" style="margin: 10px; text-align:center;">
+                        <h5 class="card-title">Mariusz Przybyła</h5>
+                        <p class="card-text">Some personal description.</p>
+                        <a href="https://github.com/PrzybylaM" class="card-link">Git</a>
+                    </div>
+                 </div>
+                 <div class="col-sm-3">
+                    <div class="card-body" style="margin: 10px; text-align:center;">
+                        <h5 class="card-title">Musiał Patryk</h5>
+                        <p class="card-text">Some personal description.</p>
+                        <a href="https://github.com/musialpatryk" class="card-link">Git</a>
+                    </div>
+                 </div>
+                 <div class="col-sm-3">
+                    <div class="card-body" style="margin: 10px; text-align:center;">
+                        <h5 class="card-title">Mikołaj Porębski</h5>
+                        <p class="card-text">Some personal description.</p>
+                        <a href="https://github.com/ViciousCabaret" class="card-link">Git</a>
+                    </div>
+                 </div>
+             </div>
+    </div>
+    <br>
+</div>
+<br><br>
+
+<div class="card">
+    <div class="card-header">
+        Tech stack:
+    </div>
+    <div class="card-body">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="card text-white bg-dark mb-3" style="max-width: 18rem; margin: 10px; text-align:center;">
+                <div class="card-body">
+                    <h5 class="card-title">HTML</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card text-white bg-dark mb-3" style="max-width: 18rem; margin: 10px; text-align:center;">
+                <div class="card-body">
+                    <h5 class="card-title">CSS</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card text-white bg-dark mb-3" style="max-width: 18rem; margin: 10px; text-align:center;">
+                <div class="card-body">
+                    <h5 class="card-title">Python</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card text-white bg-dark mb-3" style="max-width: 18rem; margin: 10px; text-align:center;">
+                <div class="card-body">
+                    <h5 class="card-title">Django</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card text-white bg-dark mb-3" style="max-width: 18rem; margin: 10px; text-align:center;">
+                <div class="card-body">
+                    <h5 class="card-title">BOOTSTRAP</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card text-white bg-dark mb-3" style="max-width: 18rem; margin: 10px; text-align:center;">
+                <div class="card-body">
+                    <h5 class="card-title">SqlLite</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <br>
 </div>
 {% endblock %}
