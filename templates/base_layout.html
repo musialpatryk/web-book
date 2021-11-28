@@ -9,6 +9,9 @@
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
         <link rel="stylesheet" href="{% static 'style.css' %}">
         <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     </head>
     <body>
 
@@ -20,56 +23,67 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'books:list' %}">Lista książek</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'authors:list' %}">Lista autorów</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/about">O serwisie</a>
-            </li>
-              <li class="nav-item">
-                  <a class="nav-link">
-                      <form action="{% url 'books:search' %}" method="get">
-                          <input name="title" type="text" placeholder="Search..."/>
-                          <input type="submit" value="Szukaj" />
-                      </form>
-                  </a>
+              <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="nvbarDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Listy
+                    </a>
+                <div class="dropdown-menu" aria-labelledby="nvbarDropdownList" style="text-align: center;">
+                    <a class="dropdown-item" href="{% url 'books:list' %}">Lista książek</a>
+                        <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'authors:list' %}">Lista autorów</a>
+                </div>
               </li>
-              {% if request.user.is_staff %}
-              <li class="nav-item">
-              <a class="nav-link" href="#">Test upraw admina</a>
+                <a class="nav-link" href="/about">O serwisie</a>
+            <li class="nav-item">
+              <a class="nav-link">
+                  <form action="{% url 'books:search' %}" method="get">
+                      <input name="title" type="text" placeholder="Search..."/>
+                      <input type="submit" value="Szukaj" />
+                  </form>
+              </a>
             </li>
+              {% if request.user.is_staff %}
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Test upraw admina</a>
+                </li>
               {% endif %}
-          </ul>
+            </ul>
+        </div>
 
-          <div class="navbar-login-control">
-              <form action="{% url 'accounts:login' %}" method="get">
-                {% csrf_token %}
-                User: {{user}}
-                <button type="submit" class="btn btn-success">Login</button>
-              </form>
-
-              <form action="{% url 'accounts:signup' %}" method="get">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-info">SignUp</button>
-              </form>
-
-              <form action="{% url 'accounts:logout' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Logout</button>
-              </form>
-
-              {% if request.user.is_authenticated %}
-               <form action="{% url 'accounts:profile' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-info">User Profile</button>
-              </form>
-              {% endif %}
-          </div>
-
-
+        <div class="topnav-right">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarUserDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Account <i class="fas fa-user-circle"></i>
+                    </a>
+                <div class="dropdown-menu" aria-labelledby="navbarUserDropDown" style="text-align: center;">
+                    {% if not request.user.is_authenticated %}
+                        <form action="{% url 'accounts:login' %}" class="dropdown-item" method="get">
+                            {% csrf_token %}
+                            <!--User: {{user}}-->
+                            <button type="submit" class="btn btn-success">Login</button>
+                        </form>
+                        <div class="dropdown-divider"></div>
+                            <form action="{% url 'accounts:signup' %}" method="get">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-info">SignUp</button>
+                            </form>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                        <!--<div class="dropdown-divider"></div>-->
+                        <form action="{% url 'accounts:profile' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-info">User Profile</button>
+                        </form>
+                        <div class="dropdown-divider"></div>
+                          <form action="{% url 'accounts:logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Logout</button>
+                        </form>
+                    {% endif %}
+                </div>
+                </li>
+            </ul>
         </div>
       </div>
     </nav>
