@@ -16,6 +16,11 @@ body{
     height:100vh;
 }
 
+.nav-item {
+    display: flex;
+    align-items: center;
+}
+
 .alert-sm {
     padding: 0.5rem 1rem !important;
     font-size: 0.8rem !important;
@@ -24,6 +29,7 @@ body{
 /* Navbar styles */
 .brand-name {
     font-family: var(--secondary-font);
+
 }
 
 .navbar-login-control {
@@ -36,4 +42,8 @@ body{
 .login-page{
     width: 550px;
     min-height: 550px;
+}
+
+.not-logged {
+    margin-top: 15vh;
 }
