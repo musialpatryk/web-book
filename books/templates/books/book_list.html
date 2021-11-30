@@ -6,5 +6,23 @@
         {% for book in books %}
             {% include "books/book_snippet.html" with book=book %}
         {% endfor %}
+    <br/>
+    </div>
+    <div class="">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if books.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">&laquo First</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ books.previous_page_number }}">Previous</a></li>
+                {% endif %}
+
+                <li class="page-item"><a href="#" class="page-link">Page {{ books.number }} of {{ books.paginator.num_pages }}</a></li>
+
+                {% if books.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ books.next_page_number }}">Next</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ books.paginator.num_pages }}">Last&raquo</a></li>
+                {% endif %}
+            </ul>
+        </nav>
     </div>
 {% endblock %}

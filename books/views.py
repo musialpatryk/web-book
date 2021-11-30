@@ -8,12 +8,15 @@ from .models import Book, Genre
 from accounts.decorators import allowed_users, admin_only
 from books.forms.request_form import BookRequestForm
 from authors.models import Author
+from django.core.paginator import Paginator
 
 
 @login_required(login_url='accounts:login')
 @allowed_users(allowed_roles=['viewer', 'admin'])
 def book_list(request):
-    books = Book.objects.filter(status='A').order_by('publishDate')
+    p = Paginator(Book.objects.filter(status='A').order_by('publishDate'), 2)
+    page = request.GET.get('page')
+    books = p.get_page(page)
     return render(request, 'books/book_list.html', {'books': books})
 
 
@@ -60,6 +63,9 @@ def book_requests(request):
     forms = []
     for book in Book.objects.filter(status='P').order_by('-publishDate'):
         forms.append(RequestListForm(book=book))
+    p = Paginator(forms, 2)
+    page = request.GET.get('page')
+    forms = p.get_page(page)
 
     return render(request, 'books/book_requests.html', {'forms': forms})
 
@@ -100,5 +106,4 @@ def search_book(request):
         book = Book.objects.filter(authors__name__contains=name)
         return render(request, 'books/book_search.html', {'books': book})
     else:
-        books = Book.objects.all().order_by('publishDate')
-        return render(request, 'books/book_list.html', {'books': books})
+        return render(request, 'books/book_list.html')
