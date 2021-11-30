@@ -25,4 +25,21 @@
                 </div>
             </div>
         {% endfor %}
+            <div class="">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if forms.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page=1">&laquo First</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ forms.previous_page_number }}">Previous</a></li>
+                        {% endif %}
+
+                        <li class="page-item"><a href="#" class="page-link">Page {{ forms.number }} of {{ forms.paginator.num_pages }}</a></li>
+
+                        {% if forms.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ forms.next_page_number }}">Next</a></li>
+                            <li class="page-item"><a class="page-link" href="?page={{ forms.paginator.num_pages }}">Last&raquo</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
 {% endblock %}
