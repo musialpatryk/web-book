@@ -1,0 +1,14 @@
+<div class="d-flex">
+    <div class="w-75">
+    </div>
+    <div class="w-25 my-3 d-flex justify-content-around align-items-center" style="flex-direction: column">
+        <form method="post" action="{% url 'reviews:create' %}">
+            {% csrf_token %}
+            {{ form.vote }}
+            {{ form.review }}
+            <input type="number" value={{book.id}} id="book_id" name="book_id" hidden>
+<!--            {{form}}-->
+            <button type="submit" class="btn btn-success" style="width: 100px;">dodaj recenzje</button>
+        </form>
+    </div>
+</div>

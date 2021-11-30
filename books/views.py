@@ -7,25 +7,27 @@ from .forms.requests_list_form import RequestListForm
 from .models import Book, Genre
 from accounts.decorators import allowed_users, admin_only
 from books.forms.request_form import BookRequestForm
+from reviews.forms.review_form import ReviewForm
 from authors.models import Author
 
 
-@login_required(login_url='accounts:login')
-@allowed_users(allowed_roles=['viewer', 'admin'])
+# @login_required(login_url='accounts:login')
+# @allowed_users(allowed_roles=['viewer', 'admin'])
 def book_list(request):
     books = Book.objects.filter(status='A').order_by('publishDate')
     return render(request, 'books/book_list.html', {'books': books})
 
 
-@login_required(login_url='accounts:login')
-@allowed_users(allowed_roles=['viewer', 'admin'])
+# @login_required(login_url='accounts:login')
+# @allowed_users(allowed_roles=['viewer', 'admin'])
 def book_details(request, slug):
     book = Book.objects.get(slug=slug)
-    return render(request, 'books/book_details.html', {'book': book})
+    form = ReviewForm()
+    return render(request, 'books/book_details.html', {'book': book, 'form': form})
 
 
-@login_required(login_url='accounts:login')
-@allowed_users(allowed_roles=['viewer', 'admin'])
+# @login_required(login_url='accounts:login')
+# @allowed_users(allowed_roles=['viewer', 'admin'])
 def book_create(request):
     if request.method == 'POST':
         book_data = request.POST
@@ -54,8 +56,8 @@ def book_create(request):
     return render(request, 'books/book_create.html', {'form': form})
 
 
-@login_required(login_url='accounts:login')
-@admin_only
+# @login_required(login_url='accounts:login')
+# @admin_only
 def book_requests(request):
     forms = []
     for book in Book.objects.filter(status='P').order_by('-publishDate'):
@@ -64,8 +66,8 @@ def book_requests(request):
     return render(request, 'books/book_requests.html', {'forms': forms})
 
 
-@login_required(login_url='accounts:login')
-@admin_only
+# @login_required(login_url='accounts:login')
+# @admin_only
 def book_accept(request):
     if request.method == 'POST':
         book_id = request.POST['book_id']
@@ -76,8 +78,8 @@ def book_accept(request):
     return HttpResponseRedirect(reverse('books:requests'))
 
 
-@login_required(login_url='accounts:login')
-@admin_only
+# @login_required(login_url='accounts:login')
+# @admin_only
 def book_reject(request):
     if request.method == 'POST':
         book_id = request.POST['book_id']
@@ -88,8 +90,8 @@ def book_reject(request):
     return HttpResponseRedirect(reverse('books:requests'))
 
 
-@login_required(login_url='accounts:login')
-@allowed_users(allowed_roles=['viewer', 'admin'])
+# @login_required(login_url='accounts:login')
+# @allowed_users(allowed_roles=['viewer', 'admin'])
 def search_book(request):
     book_get = request.GET
     name = book_get.get("title")
