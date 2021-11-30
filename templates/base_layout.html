@@ -12,6 +12,7 @@
     </head>
     <body>
 
+    {% if request.user.is_authenticated %}
      <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
       <div class="container">
         <a class="navbar-brand brand-name" href="/">BookWeb</a>
@@ -20,66 +21,71 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+             <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle"
+                     id="bookDropdown"
+                     role="button"
+                     data-bs-toggle="dropdown"
+                     aria-expanded="false">
+                    Książki
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="bookDropdown">
+                    <li>
+                      <a class="dropdown-item" href="{% url 'books:list' %}">Lista książek</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{% url 'books:create' %}">Dodaj książke</a>
+                    </li>
+                  </ul>
+             </li>
+
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'books:list' %}">Lista książek</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'books:create' %}">Dodaj książke</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'books:requests' %}">Książki do akceptacji</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'authors:list' %}">Lista autorów</a>
+              <a class="nav-link" href="{% url 'authors:list' %}">Autorzy</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/about">O serwisie</a>
             </li>
-              <li class="nav-item">
-                  <a class="nav-link">
-                      <form action="{% url 'books:search' %}" method="get">
-                          <input name="title" type="text" placeholder="Search..."/>
-                          <input type="submit" value="Szukaj" />
-                      </form>
-                  </a>
-              </li>
+
               {% if request.user.is_staff %}
-              <li class="nav-item">
-              <a class="nav-link" href="#">Test upraw admina</a>
-            </li>
-              {% endif %}
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle"
+                     id="adminDropdown"
+                     role="button"
+                     data-bs-toggle="dropdown"
+                     aria-expanded="false">
+                    Administracja
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                    <li>
+                      <a class="dropdown-item" href="{% url 'books:requests' %}">Książki do akceptacji</a>
+                    </li>
+                  </ul>
+             </li>
+             {% endif %}
           </ul>
 
-          <div class="navbar-login-control">
-              <form action="{% url 'accounts:login' %}" method="get">
-                {% csrf_token %}
-                User: {{user}}
-                <button type="submit" class="btn btn-success">Login</button>
-              </form>
+          {% include "search_bar.html" %}
 
-              <form action="{% url 'accounts:signup' %}" method="get">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-info">SignUp</button>
-              </form>
-
+          <div class="navbar-login-control ms-4">
               <form action="{% url 'accounts:logout' %}" method="post">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Logout</button>
+                <button type="submit" class="btn btn-danger btn-sm">Logout</button>
               </form>
 
-              {% if request.user.is_authenticated %}
                <form action="{% url 'accounts:profile' %}" method="post">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-info">User Profile</button>
+                <button type="submit" class="btn btn-info btn-sm">User Profile</button>
               </form>
-              {% endif %}
           </div>
 
 
         </div>
       </div>
     </nav>
-        <div class="container">
+    {% endif %}
+
+        <div class="container {% if not request.user.is_authenticated %}not-logged{% endif %}">
             {% block content %}
             {% endblock %}
         </div>
