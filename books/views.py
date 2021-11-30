@@ -5,9 +5,7 @@ from django.urls import reverse
 
 from .forms.requests_list_form import RequestListForm
 from .models import Book, Genre
-from accounts.decorators import allowed_users, admin_only
 from books.forms.request_form import BookRequestForm
-from authors.models import Author
 from django.core.paginator import Paginator
 
 from authors.models import Author
