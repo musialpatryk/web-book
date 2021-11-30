@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+
+from authors.models import Author
 from django.urls import reverse
 
 from .forms.requests_list_form import RequestListForm
