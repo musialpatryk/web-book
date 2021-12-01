@@ -4,6 +4,7 @@ from general.models import AbstractEntity
 from django.db import models
 from authors.models import Author
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Genre(AbstractEntity):
@@ -45,7 +46,7 @@ class Book(AbstractEntity):
     title = models.CharField(max_length=50, default="None")
     description = models.TextField(default="None")
     genre = models.ManyToManyField(Genre)
-    rating = models.FloatField(default=None)
+    rating = models.IntegerField(default=0)
     pages = models.IntegerField(default=None)
     slug = models.SlugField()
     publishDate = models.DateTimeField(auto_now_add=True, null=True, blank=True)
@@ -65,13 +66,16 @@ class FavoriteBooks(AbstractEntity):
 
 
 class Review(AbstractEntity):
-    vote = models.IntegerField()
+    vote = models.IntegerField(default=0,
+                               validators=[
+                                MaxValueValidator(5),
+                                MinValueValidator(0),
+                               ])
     book = models.ForeignKey("books.Book", on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     review = models.CharField(max_length=30, default="None")
     upvotes = models.IntegerField()
     downvotes = models.IntegerField()
-
 
 # Optional
 

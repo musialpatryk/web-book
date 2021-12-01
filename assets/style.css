@@ -44,6 +44,14 @@ body{
     min-height: 550px;
 }
 
+.checked {
+  color: orange;
+}
+
+.btn-rating{
+    background-color: inherit; !important;
+    border: 0 !important;
+}
 .not-logged {
     margin-top: 15vh;
 }
