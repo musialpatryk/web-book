@@ -37,3 +37,12 @@ body{
     width: 550px;
     min-height: 550px;
 }
+
+.checked {
+  color: orange;
+}
+
+.btn-rating{
+    background-color: inherit; !important;
+    border: 0 !important;
+}

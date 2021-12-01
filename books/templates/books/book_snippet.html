@@ -18,7 +18,19 @@
                     <p>{{ book.publishDate|date:"d.m.Y" }}</p>
                 </div>
             </div>
-            <p>{{ book.snippet }}</p>
+            <div class="row">
+                <div class="col-10">
+                      <p>{{ book.snippet }}</p>
+                </div>
+                <div class="col text-end">
+                    <button type="submit" class="fa fa-star btn-rating {% if book.rating >= 1 %} checked {% endif %}}}"></button>
+                    <button type="submit" class="fa fa-star btn-rating {% if book.rating >= 2 %} checked {% endif %}"></button>
+                    <button type="submit" class="fa fa-star btn-rating {% if book.rating >= 3 %} checked {% endif %}"></button>
+                    <button type="submit" class="fa fa-star btn-rating {% if book.rating >= 4 %} checked {% endif %}"></button>
+                    <button type="submit" class="fa fa-star btn-rating {% if book.rating >= 5 %} checked {% endif %}"></button>
+                </div>
+                <br>
+            </div>
         </div>
     </div>
 </div>

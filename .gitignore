@@ -4,7 +4,6 @@
 *.pyc
 __pycache__
 db.sqlite3
-accounts/__pycache__
 
 # Backup files #
 *.bak
@@ -114,6 +113,3 @@ GitHub.sublime-settings
 !.vscode/launch.json
 !.vscode/extensions.json
 .history
-
-webBookApi/__pycache__/urls.cpython-39.pyc
-*.pyc
