@@ -1,14 +1,20 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+
+from authors.models import Author
 from django.urls import reverse
 
 from .forms.requests_list_form import RequestListForm
 from .models import Book, Genre
-from accounts.decorators import allowed_users, admin_only
 from books.forms.request_form import BookRequestForm
-from authors.models import Author
 from django.core.paginator import Paginator
+
+from authors.models import Author
+from .models import Book
+from accounts.decorators import allowed_users, unauthenticated_user, admin_only
+from django.db.models import Value as V
+from django.db.models.functions import Concat
 
 
 @login_required(login_url='accounts:login')
@@ -99,11 +105,18 @@ def book_reject(request):
 def search_book(request):
     book_get = request.GET
     name = book_get.get("title")
+    date = name.split(" ")
     if Book.objects.filter(title__contains=name).exists():
         book = Book.objects.filter(title__contains=name)
         return render(request, 'books/book_search.html', {'books': book})
     elif Book.objects.filter(authors__name__contains=name).exists():
         book = Book.objects.filter(authors__name__contains=name)
         return render(request, 'books/book_search.html', {'books': book})
+    elif Book.objects.filter(authors__surname__contains=name).exists():
+        book = Book.objects.filter(authors__surname__contains=name)
+        return render(request, 'books/book_search.html', {'books': book})
+    elif Author.objects.annotate(full_name=Concat('name', V(' '), 'surname')).filter(full_name__icontains=name):
+        book = Book.objects.filter(authors__name__contains=date[0]).filter(authors__surname=date[1])
+        return render(request, 'books/book_search.html', {'books': book})
     else:
-        return render(request, 'books/book_list.html')
+        return render(request, 'books/book_search.html')
