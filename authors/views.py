@@ -4,6 +4,8 @@ from .models import Author
 from django.core.paginator import Paginator
 from helpers.pagination_tool import PaginationTool
 from accounts.decorators import allowed_users, unauthenticated_user, admin_only
+from accounts.decorators import allowed_users, unauthenticated_user, admin_only
+
 
 
 @login_required(login_url='accounts:login')

@@ -25,53 +25,34 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-             <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle"
-                     id="bookDropdown"
-                     role="button"
-                     data-bs-toggle="dropdown"
-                     aria-expanded="false">
-                    Książki
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="bookDropdown">
-                    <li>
-                      <a class="dropdown-item" href="{% url 'books:list' %}">Lista książek</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="{% url 'books:create' %}">Dodaj książke</a>
-                    </li>
-                  </ul>
-             </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'authors:list' %}">Autorzy</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/about">O serwisie</a>
-            </li>
-
-              {% if request.user.is_staff %}
               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle"
-                     id="adminDropdown"
-                     role="button"
-                     data-bs-toggle="dropdown"
-                     aria-expanded="false">
-                    Administracja
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="adminDropdown">
-                    <li>
-                      <a class="dropdown-item" href="{% url 'books:requests' %}">Książki do akceptacji</a>
-                    </li>
-                  </ul>
-             </li>
-             {% endif %}
-          </ul>
+                    <a class="nav-link dropdown-toggle" href="#" id="nvbarDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Listy
+                    </a>
+                <div class="dropdown-menu" aria-labelledby="nvbarDropdownList" style="text-align: center;">
+                    <a class="dropdown-item" href="{% url 'books:list' %}">Lista książek</a>
+                        <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'authors:list' %}">Lista autorów</a>
+                </div>
+              </li>
+                <a class="nav-link" href="/about">O serwisie</a>
+            <li class="nav-item">
+              <a class="nav-link">
+                  <form action="{% url 'books:search' %}" method="get">
+                      <input name="title" type="text" placeholder="Search..."/>
+                      <input type="submit" value="Szukaj" />
+                  </form>
+              </a>
+            </li>
+              {% if request.user.is_staff %}
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Test upraw admina</a>
+                </li>
+              {% endif %}
+            </ul>
+        </div>
 
-          {% include "search_bar.html" %}
-
-   <div class="topnav-right">
+        <div class="topnav-right">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarUserDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -105,7 +86,6 @@
                 </div>
                 </li>
             </ul>
-        </div>
         </div>
       </div>
     </nav>
