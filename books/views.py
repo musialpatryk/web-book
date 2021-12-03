@@ -106,17 +106,21 @@ def search_book(request):
     book_get = request.GET
     name = book_get.get("title")
     date = name.split(" ")
-    if Book.objects.filter(title__contains=name).exists():
-        book = Book.objects.filter(title__contains=name)
-        return render(request, 'books/book_search.html', {'books': book})
-    elif Book.objects.filter(authors__name__contains=name).exists():
-        book = Book.objects.filter(authors__name__contains=name)
-        return render(request, 'books/book_search.html', {'books': book})
-    elif Book.objects.filter(authors__surname__contains=name).exists():
-        book = Book.objects.filter(authors__surname__contains=name)
-        return render(request, 'books/book_search.html', {'books': book})
+    if Book.objects.filter(title__icontains=name).exists():
+        book = Book.objects.filter(title__icontains=name)
+        author = Author.objects.filter(book__title__icontains=name)
+        return render(request, 'books/book_search.html', {'books': book, 'authors': author})
+    elif Book.objects.filter(authors__name__icontains=name).exists():
+        book = Book.objects.filter(authors__name__icontains=name)
+        author = Author.objects.filter(name__icontains=name)
+        return render(request, 'books/book_search.html', {'books': book, 'authors': author})
+    elif Book.objects.filter(authors__surname__icontains=name).exists():
+        book = Book.objects.filter(authors__surname__icontains=name)
+        author = Author.objects.filter(surname__icontains=name)
+        return render(request, 'books/book_search.html', {'books': book, 'authors': author})
     elif Author.objects.annotate(full_name=Concat('name', V(' '), 'surname')).filter(full_name__icontains=name):
-        book = Book.objects.filter(authors__name__contains=date[0]).filter(authors__surname=date[1])
-        return render(request, 'books/book_search.html', {'books': book})
+        book = Book.objects.filter(authors__name__icontains=date[0]).filter(authors__surname__icontains=date[1])
+        author = Author.objects.filter(name__icontains=date[0])
+        return render(request, 'books/book_search.html', {'books': book, 'authors': author})
     else:
-        return render(request, 'books/book_search.html')
+        return render(request, 'books/book_not_found.html', {'name': name})
