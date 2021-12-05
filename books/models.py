@@ -21,14 +21,20 @@ class BookManager(models.Manager):
             description,
             author,
             genre,
+            publishDate
     ):
         book_slug = slugify(title)
+        potential_slug_duplicate_len = len(self.filter(slug=book_slug))
+        if potential_slug_duplicate_len > 0:
+           book_slug += '-' + str(potential_slug_duplicate_len)
+
         book = self.create(
             title=title,
             description=description,
             pages=2,
             rating=0,
-            slug=book_slug
+            slug=book_slug,
+            publishDate=publishDate
         )
         book.authors.set([author])
         book.genre.set([genre])

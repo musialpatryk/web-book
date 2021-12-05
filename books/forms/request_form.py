@@ -3,7 +3,8 @@ from django import forms
 class BookRequestForm(forms.Form):
     placeholders = {
         'title': 'Tytuł',
-        'description': 'Opis'
+        'description': 'Opis',
+        'publishDate': 'Data publikacji'
     }
     title = forms.CharField(
         max_length=100,
@@ -16,6 +17,10 @@ class BookRequestForm(forms.Form):
     )
     description = forms.CharField(
         widget=forms.Textarea()
+    )
+    publishDate = forms.DateField(
+        input_formats='%Y-%m-%d',
+        widget=forms.DateInput(attrs={'type': 'date'})
     )
 
     def __init__(self, *args, authors=None, genre=None, **kwargs):
