@@ -8,4 +8,6 @@ urlpatterns = [
     url(r'^$', views.authors_list, name="list"),
     # url(r'^create/$', views.book_create, name="create"),
     url(r'^(?P<slug>[\w-]+)/$', views.author_details, name="details"),
+    url(r'^remove/(?P<pk>\d+)/$', views.author_delete, name="remove_author"),
+
 ]
