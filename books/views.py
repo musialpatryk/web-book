@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 
 from django.urls import reverse
 
@@ -100,6 +100,16 @@ def book_reject(request):
         book.save()
 
     return HttpResponseRedirect(reverse('books:requests'))
+
+
+@login_required(login_url='accounts:login')
+@admin_only
+def book_delete(request, pk):
+    if request.method == 'POST':
+        book = Book.objects.get(pk=pk)
+        book.delete()
+
+        return HttpResponseRedirect("/books/")
 
 
 @login_required(login_url='accounts:login')

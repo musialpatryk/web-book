@@ -2,11 +2,21 @@
 
 {% block content %}
     <h1 class="text-center mb-5">Lista autorów</h1>
-    <div class="books">
-        {% for author in authors %}
+
+    {% for author in authors %}
+    <div class="d-flex">
+        <div class="w-75">
             {% include "authors/author_snippet.html" with author=author %}
-        {% endfor %}
+        </div>
+        <div class="w-25 my-3 d-flex justify-content-around align-items-center" style="flex-direction: column">
+            <form method="POST" action="{% url 'authors:remove_author' pk=author.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger" style="width: 100px;">Usuń</button>
+            </form>
+        </div>
     </div>
+
+        {% endfor %}
     <div class="">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
