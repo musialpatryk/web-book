@@ -9,7 +9,7 @@ class Author(AbstractEntity):
     description = models.TextField(default="None")
     birthDate = models.DateField()
     slug = models.SlugField(default="None")
-    rating = models.FloatField(default=None)
+    rating = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name + " " + self.surname
