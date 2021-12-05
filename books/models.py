@@ -21,14 +21,20 @@ class BookManager(models.Manager):
             description,
             author,
             genre,
+            publishDate
     ):
         book_slug = slugify(title)
+        potential_slug_duplicate_len = len(self.filter(slug=book_slug))
+        if potential_slug_duplicate_len > 0:
+           book_slug += '-' + str(potential_slug_duplicate_len)
+
         book = self.create(
             title=title,
             description=description,
             pages=2,
             rating=0,
-            slug=book_slug
+            slug=book_slug,
+            publishDate=publishDate
         )
         book.authors.set([author])
         book.genre.set([genre])
@@ -49,7 +55,7 @@ class Book(AbstractEntity):
     rating = models.IntegerField(default=0)
     pages = models.IntegerField(default=None)
     slug = models.SlugField()
-    publishDate = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    publishDate = models.DateTimeField(null=True, blank=True)
     status = models.CharField(choices=STATUS, max_length=10, default="P")
 
 

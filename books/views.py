@@ -2,17 +2,16 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from authors.models import Author
 from django.urls import reverse
 
 from .forms.requests_list_form import RequestListForm
-from .models import Book, Genre
+from .models import Genre
 from books.forms.request_form import BookRequestForm
 from django.core.paginator import Paginator
 
 from authors.models import Author
 from .models import Book
-from accounts.decorators import allowed_users, unauthenticated_user, admin_only
+from accounts.decorators import allowed_users, admin_only
 from django.db.models import Value as V
 from django.db.models.functions import Concat
 
@@ -45,7 +44,8 @@ def book_create(request):
             book_data['title'],
             book_data['description'],
             author,
-            genre
+            genre,
+            book_data['publishDate']
         )
         new_book.save()
 
