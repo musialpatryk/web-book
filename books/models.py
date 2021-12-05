@@ -49,7 +49,7 @@ class Book(AbstractEntity):
     rating = models.IntegerField(default=0)
     pages = models.IntegerField(default=None)
     slug = models.SlugField()
-    publishDate = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    publishDate = models.DateTimeField(null=True, blank=True)
     status = models.CharField(choices=STATUS, max_length=10, default="P")
 
 
