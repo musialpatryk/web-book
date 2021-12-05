@@ -1,5 +1,6 @@
 from django import forms
 
+
 class RequestListForm(forms.Form):
     book_id = forms.IntegerField(widget=forms.NumberInput(attrs={'hidden': True}))
     accept = forms.NullBooleanField()

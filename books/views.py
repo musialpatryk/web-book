@@ -45,8 +45,10 @@ def book_create(request):
             book_data['title'],
             book_data['description'],
             author,
-            genre
+            genre,
+            request.FILES['image']
         )
+
         new_book.save()
 
         return HttpResponseRedirect('/')
