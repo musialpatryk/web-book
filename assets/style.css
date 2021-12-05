@@ -32,11 +32,6 @@ body{
 
 }
 
-.navbar-login-control {
-    display: flex;
-    gap: 10px;
-}
-
 /* Login page */
 
 .login-page{
