@@ -2,11 +2,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from accounts.decorators import admin_only
 from .models import Author
 from django.core.paginator import Paginator
-from helpers.pagination_tool import PaginationTool
-from accounts.decorators import allowed_users, unauthenticated_user, admin_only
+from accounts.decorators import allowed_users, admin_only
 
 
 @login_required(login_url='accounts:login')
