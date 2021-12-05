@@ -1,11 +1,13 @@
 from django import forms
 
+
 class BookRequestForm(forms.Form):
     placeholders = {
         'title': 'Tytuł',
         'description': 'Opis',
         'publishDate': 'Data publikacji'
     }
+
     title = forms.CharField(
         max_length=100,
     )
@@ -22,6 +24,7 @@ class BookRequestForm(forms.Form):
         input_formats='%Y-%m-%d',
         widget=forms.DateInput(attrs={'type': 'date'})
     )
+    image = forms.ImageField()
 
     def __init__(self, *args, authors=None, genre=None, **kwargs):
         super(BookRequestForm, self).__init__(*args, **kwargs)

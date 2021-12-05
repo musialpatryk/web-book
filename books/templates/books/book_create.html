@@ -2,8 +2,9 @@
 
 {% block content %}
     <h1 class="text-center mb-5">Dodaj nową książke</h1>
-    <form method="post" action="{% url 'books:create' %}">
+    <form method="post" action="{% url 'books:create' %}" enctype="multipart/form-data">
         {% csrf_token %}
+
         {{form.title}}
 
         {{form.author}}
@@ -13,6 +14,7 @@
 
         {{form.publishDate}}
 
+        {{form.image}}
         <button type="submit" class="btn btn-success">Zgłoś</button>
     </form>
 {% endblock %}

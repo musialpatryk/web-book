@@ -4,7 +4,7 @@ from general.models import AbstractEntity
 from django.db import models
 from authors.models import Author
 from django.contrib.auth.models import User
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator, FileExtensionValidator
 
 
 class Genre(AbstractEntity):
@@ -14,6 +14,7 @@ class Genre(AbstractEntity):
     def __str__(self):
         return self.genreName
 
+
 class BookManager(models.Manager):
     def create_book(
             self,
@@ -21,7 +22,8 @@ class BookManager(models.Manager):
             description,
             author,
             genre,
-            publishDate
+            publishDate,
+            image
     ):
         book_slug = slugify(title)
         potential_slug_duplicate_len = len(self.filter(slug=book_slug))
@@ -34,11 +36,13 @@ class BookManager(models.Manager):
             pages=2,
             rating=0,
             slug=book_slug,
-            publishDate=publishDate
+            publishDate=publishDate,
+            image=image
         )
         book.authors.set([author])
         book.genre.set([genre])
         return book
+
 
 class Book(AbstractEntity):
     objects = BookManager()
@@ -57,7 +61,8 @@ class Book(AbstractEntity):
     slug = models.SlugField()
     publishDate = models.DateTimeField(null=True, blank=True)
     status = models.CharField(choices=STATUS, max_length=10, default="P")
-
+    image = models.ImageField(default='book_images/BookDefault.png',
+                              upload_to='book_images', validators=[FileExtensionValidator(allowed_extensions=['png'])])
 
     def __str__(self):
         return self.title
