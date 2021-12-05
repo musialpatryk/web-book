@@ -10,3 +10,6 @@ Genre.objects.all().delete()
 from django.contrib.auth.models import User, Group
 User.objects.all().delete()
 Group.objects.all().delete()
+
+from allauth.account.apps import AppConfig
+AppConfig.objects.all().delete()
