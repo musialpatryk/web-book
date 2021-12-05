@@ -18,7 +18,19 @@
                     <p>{{ author.birthDate|date:"d.m.Y" }}</p>
                 </div>
             </div>
-            <p>{{ author.description }}</p>
+             <div class="row">
+                <div class="col-10">
+                    <p>{{ author.description }}</p>
+                </div>
+                <div class="col text-end">
+                      <button type="submit" class="fa fa-star btn-rating {% if author.rating >= 1 %} checked {% endif %}}}"></button>
+                    <button type="submit" class="fa fa-star btn-rating {% if author.rating >= 2 %} checked {% endif %}"></button>
+                    <button type="submit" class="fa fa-star btn-rating {% if author.rating >= 3 %} checked {% endif %}"></button>
+                    <button type="submit" class="fa fa-star btn-rating {% if author.rating >= 4 %} checked {% endif %}"></button>
+                    <button type="submit" class="fa fa-star btn-rating {% if author.rating >= 5 %} checked {% endif %}"></button>
+                </div>
+                <br>
+            </div>
         </div>
     </div>
 </div>

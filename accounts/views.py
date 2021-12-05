@@ -49,13 +49,11 @@ def logout_view(request):
 
 
 @login_required(login_url='accounts:login')
-@allowed_users(allowed_roles=['viewer', 'admin'])
 def user_profile_view(request):
     return render(request, 'accounts/user_profile.html')
 
 
 @login_required(login_url='accounts:login')
-@allowed_users(allowed_roles=['viewer', 'admin'])
 def UpdateUser_profile_view(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)

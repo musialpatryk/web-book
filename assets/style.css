@@ -47,3 +47,12 @@ body{
 .not-logged {
     margin-top: 15vh;
 }
+
+.checked {
+  color: orange;
+}
+
+.btn-rating{
+    background-color: inherit; !important;
+    border: 0 !important;
+}

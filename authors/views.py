@@ -6,9 +6,11 @@ from accounts.decorators import admin_only
 from .models import Author
 from django.core.paginator import Paginator
 from helpers.pagination_tool import PaginationTool
+from accounts.decorators import allowed_users, unauthenticated_user, admin_only
 
 
 @login_required(login_url='accounts:login')
+@allowed_users(allowed_roles=['viewer', 'admin'])
 def authors_list(request):
     p = Paginator(Author.objects.all().order_by('name'), 2)
     page = request.GET.get('page')
@@ -17,6 +19,7 @@ def authors_list(request):
 
 
 @login_required(login_url='accounts:login')
+@allowed_users(allowed_roles=['viewer', 'admin'])
 def author_details(request, slug):
     author = Author.objects.get(slug=slug)
     # if null === book:
