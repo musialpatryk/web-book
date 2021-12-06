@@ -71,42 +71,47 @@
 
           {% include "search_bar.html" %}
 
-          <div class="navbar-login-control ms-4">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarUserDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Account <i class="fas fa-user-circle"></i>
-                    </a>
-                <div class="dropdown-menu" aria-labelledby="navbarUserDropDown" style="text-align: center;">
-                    {% if not request.user.is_authenticated %}
+        <div class="navbar-login-control ms-4 dropdown">
+              <button class="btn btn-dark dropdown-toggle" style="min-width: 160px"
+                 id="dropdownMenuLink"
+                 data-toggle="dropdown"
+                 aria-haspopup="true"
+                 aria-expanded="false">
+                  Account <i class="fas fa-user-circle"></i>
+              </button>
+
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+                  {% if not request.user.is_authenticated %}
+                    <li>
                         <form action="{% url 'accounts:login' %}" class="dropdown-item" method="get">
                             {% csrf_token %}
                             <!--User: {{user}}-->
-                            <button type="submit" class="btn btn-success">Login</button>
+                            <button type="submit" class="dropdown-item">Login</button>
                         </form>
                         <div class="dropdown-divider"></div>
-                            <form action="{% url 'accounts:signup' %}" method="get">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-info">SignUp</button>
-                            </form>
-                    {% endif %}
+                        <form action="{% url 'accounts:signup' %}" method="get">
+                            {% csrf_token %}
+                            <button type="submit" class="dropdown-item">SignUp</button>
+                        </form>
+                    </li>
+                {% endif %}
 
-                    {% if request.user.is_authenticated %}
+
+                  {% if request.user.is_authenticated %}
+                    <li>
                         <form action="{% url 'accounts:profile' %}" method="post">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-info">User Profile</button>
+                            <button type="submit" class="dropdown-item">User Profile</button>
                         </form>
                         <div class="dropdown-divider"></div>
-                          <form action="{% url 'accounts:logout' %}" method="post">
+                        <form action="{% url 'accounts:logout' %}" method="post">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-danger">Logout</button>
+                            <button type="submit" class="dropdown-item">Logout</button>
                         </form>
-                    {% endif %}
-                </div>
-                </li>
-            </ul>
+                    </li>
+                {% endif %}
+              </ul>
         </div>
-
 
         </div>
       </div>
