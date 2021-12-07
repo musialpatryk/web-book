@@ -29,6 +29,7 @@ Każda zmiana to nowy Branch - NIE DODAJEMY DO MAINA!!!
 - `python ./commands/run-fixtures.py` - dodaje początkowe dane na podstawie danych z folderu `fixtures/`
 - `pip freeze > requirments.txt` - zapisanie zainstalowanych paczek do pliku `requirments.txt` 
 - `python manage.py shell < commands/clear.py` - czyści bazę danych autorów, książek i userów
+-  `python manage.py runsslserver` - Uruchamia serwer https
 
 # Tworzenie bazy danych od zera:
 - `python manage.py migrate`

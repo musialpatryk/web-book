@@ -2,9 +2,42 @@
 
 {% block content %}
     <h1 class="text-center mb-5">Lista książek</h1>
-    <div class="books">
-        {% for book in books %}
-            {% include "books/book_snippet.html" with book=book %}
-        {% endfor %}
+
+    {% for book in books %}
+    <div class="d-flex">
+        {% if request.user.is_staff %}
+            <div class="w-75">
+                {% include "books/book_snippet.html" with book=book %}
+            </div>
+            <div class="w-25 my-3 d-flex justify-content-around align-items-center" style="flex-direction: column">
+                <form method="POST" action="{% url 'books:remove_book' pk=book.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" style="width: 100px;">Usuń</button>
+                </form>
+            </div>
+        {% endif %}
+        {% if not request.user.is_staff %}
+            <div class="w-100">
+                {% include "books/book_snippet.html" with book=book %}
+            </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+    <div class="">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if books.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">&laquo First</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ books.previous_page_number }}">Previous</a></li>
+                {% endif %}
+
+                <li class="page-item"><a href="#" class="page-link">Page {{ books.number }} of {{ books.paginator.num_pages }}</a></li>
+
+                {% if books.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ books.next_page_number }}">Next</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ books.paginator.num_pages }}">Last&raquo</a></li>
+                {% endif %}
+            </ul>
+        </nav>
     </div>
 {% endblock %}

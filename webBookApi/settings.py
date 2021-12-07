@@ -149,8 +149,8 @@ SITE_ID = 1
 
 LOGIN_REDIRECT_URL = "/"
 
-MEDIA_ROOT = (BASE_DIR/'media')
+MEDIA_ROOT = (BASE_DIR/'assets/media')
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/assets/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

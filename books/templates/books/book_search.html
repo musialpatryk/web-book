@@ -7,4 +7,11 @@
             {% include "books/book_snippet.html" with book=book %}
         {% endfor %}
     </div>
+    <br/>
+    <h1 class="text-center mb-5">Wyszukani autorzy</h1>
+    <div class="books">
+        {% for author in authors %}
+            {% include "authors/author_snippet.html" with author=author %}
+        {% endfor %}
+    </div>
 {% endblock %}
