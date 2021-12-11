@@ -20,7 +20,7 @@ from django.db.models.functions import Concat
 @login_required(login_url='accounts:login')
 @allowed_users(allowed_roles=['viewer', 'admin'])
 def book_list(request):
-    p = Paginator(Book.objects.filter(status='A').order_by('publishDate'), 2)
+    p = Paginator(Book.objects.filter(status='A').order_by('publishDate'), 10)
     page = request.GET.get('page')
     books = p.get_page(page)
     return render(request, 'books/book_list.html', {'books': books})
@@ -73,7 +73,7 @@ def book_requests(request):
     forms = []
     for book in Book.objects.filter(status='P').order_by('-publishDate'):
         forms.append(RequestListForm(book=book))
-    p = Paginator(forms, 2)
+    p = Paginator(forms, 10)
     page = request.GET.get('page')
     forms = p.get_page(page)
 
