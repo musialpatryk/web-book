@@ -3,6 +3,9 @@ from django import forms
 from django.forms import PasswordInput
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import Group
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 
 class CreateUserForm(UserCreationForm):
@@ -75,3 +78,11 @@ class ProfileUpdateForm(forms.ModelForm):
                 self.fields[field].widget.attrs.update({
                     'placeholder': self.placeholders[field],
                 })
+
+
+# Add user to default group during social login
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        instance.groups.add(Group.objects.get(name='viewer'))
+

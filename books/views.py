@@ -1,14 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
-
 from django.urls import reverse
-
 from .forms.requests_list_form import RequestListForm
 from .models import Genre
 from books.forms.request_form import BookRequestForm
 from django.core.paginator import Paginator
-
 from reviews.forms.review_form import ReviewForm
 from authors.models import Author
 from .models import Book
