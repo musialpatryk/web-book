@@ -9,6 +9,7 @@ from .models import Genre
 from books.forms.request_form import BookRequestForm
 from django.core.paginator import Paginator
 
+from reviews.forms.review_form import ReviewForm
 from authors.models import Author
 from .models import Book
 from accounts.decorators import allowed_users, admin_only
@@ -29,7 +30,8 @@ def book_list(request):
 @allowed_users(allowed_roles=['viewer', 'admin'])
 def book_details(request, slug):
     book = Book.objects.get(slug=slug)
-    return render(request, 'books/book_details.html', {'book': book})
+    form = ReviewForm()
+    return render(request, 'books/book_details.html', {'book': book, 'form': form})
 
 
 @login_required(login_url='accounts:login')

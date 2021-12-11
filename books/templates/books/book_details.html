@@ -13,7 +13,8 @@
             {{ book.publishDate }}
         </p>
     </div>
-</div>
+    {% include "reviews/review_create.html" with book=book form=form %}
 
+</div>
 
 {% endblock %}
