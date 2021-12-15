@@ -6933,6 +6933,7 @@ textarea.form-control-lg {
 
 .w-100 {
   width: 100% !important;
+  height:300px
 }
 
 .w-auto {
