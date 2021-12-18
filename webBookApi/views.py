@@ -21,7 +21,7 @@ def home(request):
     for_you_3 = random.choice(book_for_you)
 
     book_raw = []
-    for p in Book.objects.raw('select b.id, count(br.id) as books_review from books_book b left join books_review br on b.id = br.book_id group by b.id order by books_review desc'):
+    for p in Book.objects.raw('select b.id, count(br.id) as reviews_review from books_book b left join reviews_review br on b.id = br.book_id group by b.id order by reviews_review desc'):
         book_raw.append(p)
 
     most_rated_1 = book_raw[0]
