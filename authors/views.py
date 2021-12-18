@@ -5,6 +5,7 @@ from django.shortcuts import render
 from .models import Author
 from django.core.paginator import Paginator
 from accounts.decorators import allowed_users, admin_only
+from django.contrib import messages
 
 
 @login_required(login_url='accounts:login')
@@ -30,6 +31,7 @@ def author_delete(request, pk):
     if request.method == 'POST':
         author = Author.objects.get(pk=pk)
         author.delete()
+        messages.success(request, "Pomyslnie usunieto autora")
 
         return HttpResponseRedirect("/authors/")
 

@@ -45,6 +45,7 @@ def review_change_status(request, status):
         rating_service.recalculate_book_rating(review.book)
         rating_service.recalculate_author_rating(review.book.authors.all())
 
+    messages.success(request, 'Pomyslnie zmieniono status recenzji')
     return HttpResponseRedirect('/')
 
 def accept_review(request):
