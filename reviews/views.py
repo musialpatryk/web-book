@@ -3,20 +3,27 @@ from books.models import Review, Book
 from django.http import HttpResponseRedirect
 from .forms.review_form import ReviewForm
 from .services import rating_service
+from django.contrib import messages
 
 
 # Create your views here.
 def review_create(request):
     if request.method == 'POST':
         review_data = request.POST
+        vote = int(review_data['vote'])
+
+        if vote > 5 or vote < 0:
+            messages.success(request, 'Oddany głos powinien mieścić się w przedziale od 1 do 5')
+            return HttpResponseRedirect('/')
+
         review = Review.objects.create_review(
-            review_data['vote'],
+            vote,
             review_data['review'],
             Book.objects.get(id=review_data['book_id']),
             request.user
-            # review_data['book_id']
         )
         review.save()
+        messages.success(request, 'Recenzja została dodana i oczekuje na akceptację')
         return HttpResponseRedirect('/')
 
     book = Book.objects.get(slug='test')
