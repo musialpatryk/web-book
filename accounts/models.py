@@ -86,3 +86,12 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         instance.groups.add(Group.objects.get(name='viewer'))
 
+
+def get_users(groupname):
+    users = User.objects.filter(groups__name=groupname)
+    list = [""]
+
+    for user in users:
+        list.append(user.email)
+
+    return list

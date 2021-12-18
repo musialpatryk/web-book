@@ -154,3 +154,13 @@ MEDIA_ROOT = (BASE_DIR/'assets/media')
 MEDIA_URL = '/assets/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+# SMTP Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = 'djangoProjectWeb@gmail.com'
+EMAIL_HOST_PASSWORD = 'B3dzi3Pi3c?'

@@ -14,6 +14,7 @@ def signup_view(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             user = form.save()
+            # user.is_active = False
             username = form.cleaned_data.get('username')
 
             group = Group.objects.get(name='viewer')

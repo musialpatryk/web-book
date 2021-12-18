@@ -91,6 +91,7 @@ class ReviewManager(models.Manager):
             user = user
         )
 
+
 class Review(AbstractEntity):
     STATUS_PENDING = 0
     STATUS_REJECTED = 1
@@ -109,6 +110,7 @@ class Review(AbstractEntity):
     upvotes = models.IntegerField(default=0)
     downvotes = models.IntegerField(default=0)
 # Optional
+
 
 class Series(AbstractEntity):
     name = models.CharField(max_length=30, default="None")
