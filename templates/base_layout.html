@@ -121,13 +121,15 @@
     </nav>
     {% endif %}
 
+    <div class="main-content">
         <div class="container {% if not request.user.is_authenticated %}not-logged{% endif %}">
             {% block content %}
             {% endblock %}
         </div>
 
-    {% block full_width_content %}
-    {% endblock %}
+        {% block full_width_content %}
+        {% endblock %}
+    </div>
 
     {% if request.user.is_authenticated %}
         {% include "footer.html" %}

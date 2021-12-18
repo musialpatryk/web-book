@@ -14,6 +14,14 @@
 
 body{
     height:100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .nav-item {
@@ -54,7 +62,7 @@ body{
 
 /* Homepage styles */
 
-.carousel-container {
+.carousel-container:not(:nth-of-type(1)) {
     margin: 3rem 0;
 }
 

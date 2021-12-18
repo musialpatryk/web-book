@@ -28,12 +28,14 @@
             {% else %}
             <div class="carousel-item">
             {% endif %}
-                <div class="carousel-img-container w-100 h-100">
-                    <img src="/assets/media/{{book.image}}" class="carousel-img" alt="{{book}}">
-                </div>
-                <div class="carousel-caption d-none d-md-block">
-                    <h3>{{book}}</h3>
-                </div>
+                <a href="{% url 'books:details' slug=book.slug %}">
+                    <div class="carousel-img-container w-100 h-100">
+                        <img src="/assets/media/{{book.image}}" class="carousel-img" alt="{{book}}">
+                    </div>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>{{book}}</h3>
+                    </div>
+                </a>
             </div>
         {% endfor %}
 
