@@ -51,3 +51,26 @@ body{
     background-color: inherit; !important;
     border: 0 !important;
 }
+
+/* Homepage styles */
+
+.carousel-container {
+    margin: 3rem 0;
+}
+
+.carousel-container:nth-of-type(2n) {
+    background-color: var(--lt-color-gray-700);
+    color: var(--bs-body-color);
+}
+
+.carousel-container:nth-of-type(2n) h2 {
+    color: #ffffff;
+}
+
+.carousel-inner {
+    min-height: 400px;
+}
+
+.carousel-item img {
+    filter: brightness(50%);
+}

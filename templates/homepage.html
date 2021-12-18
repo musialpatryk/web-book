@@ -1,24 +1,43 @@
 {% extends "base_layout.html" %}
 
-{% block content %}
-<div>
-    <H1>Polecane na dzisiaj</H1>
-    {% include "carousel_1.html" %}
-    <br>
-    <H1>Znajdź coś dla siebie</H1>
-    {% include "carousel_2.html" %}
-    <br>
-    <H1>Najchętniej oceniane</H1>
-    {% include "carousel_3.html" %}
-    <br>
-    <H1>Top 3</H1>
-    {% include "carousel_4.html" %}
-    <br>
-    <H1>Nowo dodane</H1>
-    {% include "carousel_5.html" %}
-</div>
-<div>
-    {% include "footer.html" %}
+
+
+{% block full_width_content %}
+<div class="home-page-container text-center">
+    <div class="carousel-container">
+        <h2 class="mb-5">Polecane na dzisiaj</h2>
+        <div class="container">
+            {% include "carousel.html" with name='today_list' books=today_list %}
+        </div>
+    </div>
+
+    <div class="carousel-container">
+        <h2 class="pt-5 mb-5">Znajdź coś dla siebie</h2>
+        <div class="container">
+            {% include "carousel.html" with name='random_list' books=random_list %}
+        </div>
+    </div>
+
+    <div class="carousel-container">
+        <h2 class="pt-3 mb-5">Najchętniej oceniane</h2>
+        <div class="container">
+            {% include "carousel.html" with name='most_rated_list' books=most_rated_list %}
+        </div>
+    </div>
+
+    <div class="carousel-container">
+        <h2 class="pt-3 mb-5">Top 3 najlepiej ocenianych</h2>
+        <div class="container">
+            {% include "carousel.html" with name='top_books_list' books=top_books_list %}
+        </div>
+    </div>
+
+    <div class="carousel-container">
+        <h2 class="pt-3 mb-5">Nowo dodane</h2>
+        <div class="container">
+            {% include "carousel.html" with name='new_books_list' books=new_books_list %}
+        </div>
+    </div>
 </div>
 
 

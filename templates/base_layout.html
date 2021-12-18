@@ -126,7 +126,13 @@
             {% endblock %}
         </div>
 
+    {% block full_width_content %}
+    {% endblock %}
 
-        <script src="{% static 'js/bootstrap.js' %}"></script>
+    {% if request.user.is_authenticated %}
+        {% include "footer.html" %}
+    {% endif %}
+
+    <script src="{% static 'js/bootstrap.js' %}"></script>
     </body>
 </html>
