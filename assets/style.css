@@ -12,6 +12,10 @@
     --secondary-font: 'Hammersmith One', sans-serif
 }
 
+a {
+    text-decoration: none;
+}
+
 body{
     height:100vh;
     display: flex;
@@ -37,7 +41,6 @@ body{
 /* Navbar styles */
 .brand-name {
     font-family: var(--secondary-font);
-
 }
 
 /* Login page */

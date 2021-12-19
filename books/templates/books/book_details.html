@@ -2,19 +2,38 @@
 
 {% block content %}
 <div class="book-detail">
-    <div class="book">
-        <h2>
-            {{ book.title }}
-        </h2>
-        <p>
-            {{ book.description }}
-        </p>
-        <p>
-            {{ book.publishDate }}
-        </p>
+    <div class="book card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-2">
+                        <div class="w-100 h-100">
+                            <img class="img-thumbnail" src="{{ book.image.url }}" alt="book-image">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="row">
+                            <h1 class="col">{{ book.title }}</h1>
+
+                            <div class="col-2 mt-2 fs-5 text-end">
+                                <span class="fa fa-star btn-rating {% if book.rating >= 1 %} checked {% endif %}}}"></span>
+                                <span class="fa fa-star btn-rating {% if book.rating >= 2 %} checked {% endif %}"></span>
+                                <span class="fa fa-star btn-rating {% if book.rating >= 3 %} checked {% endif %}"></span>
+                                <span class="fa fa-star btn-rating {% if book.rating >= 4 %} checked {% endif %}"></span>
+                                <span class="fa fa-star btn-rating {% if book.rating >= 5 %} checked {% endif %}"></span>
+                            </div>
+                        </div>
+
+                        <h5>{{ book.publishDate|date:"d.m.Y" }}</h5>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <p>{{ book.description }}</p>
+                </div>
+            </div>
     </div>
     {% include "reviews/review_create.html" with book=book form=form %}
-
 </div>
 
 {% endblock %}
