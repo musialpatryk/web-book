@@ -80,7 +80,7 @@
                  data-toggle="dropdown"
                  aria-haspopup="true"
                  aria-expanded="false">
-                  Account <i class="fas fa-user-circle"></i>
+                  Konto <i class="fas fa-user-circle"></i>
               </button>
 
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
@@ -104,12 +104,12 @@
                     <li>
                         <form action="{% url 'accounts:profile' %}" method="post">
                             {% csrf_token %}
-                            <button type="submit" class="dropdown-item">User Profile</button>
+                            <button type="submit" class="dropdown-item">Profil użytkownika</button>
                         </form>
                         <div class="dropdown-divider"></div>
                         <form action="{% url 'accounts:logout' %}" method="post">
                             {% csrf_token %}
-                            <button type="submit" class="dropdown-item">Logout</button>
+                            <button type="submit" class="dropdown-item">Wyloguj</button>
                         </form>
                     </li>
                 {% endif %}

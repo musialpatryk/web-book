@@ -1,6 +1,6 @@
 <div class="card mt-4">
     <form method="post" class="card-body" action="{% url 'reviews:create' %}">
-        <h2 class="mb-4">Dodaj recenzje</h2>
+        <h4 class="mb-4">Dodaj recenzje</h4>
         {% csrf_token %}
         {{ form.vote }}
         {{ form.review }}
