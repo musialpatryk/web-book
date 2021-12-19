@@ -11,5 +11,6 @@ from django.contrib.auth.models import User, Group
 User.objects.all().delete()
 Group.objects.all().delete()
 
-from allauth.account.apps import AppConfig
-AppConfig.objects.all().delete()
+# Currently is not working.
+# from allauth.account.apps import AppConfig
+# AppConfig.objects.all().delete()

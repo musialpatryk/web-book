@@ -34,6 +34,7 @@ Każda zmiana to nowy Branch - NIE DODAJEMY DO MAINA!!!
 # Tworzenie bazy danych od zera:
 - `python manage.py migrate`
 - `python ./commands/run-fixtures.py`
+- `python manage.py shell < commands/randomize-images.py`
 
 ### Użytkownicy
 W ramach fixtures'ów dodawani są użytkownicy:
