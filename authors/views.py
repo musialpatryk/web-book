@@ -10,7 +10,7 @@ from accounts.decorators import allowed_users, admin_only
 @login_required(login_url='accounts:login')
 @allowed_users(allowed_roles=['viewer', 'admin'])
 def authors_list(request):
-    p = Paginator(Author.objects.all().order_by('name'), 2)
+    p = Paginator(Author.objects.all().order_by('name'), 10)
     page = request.GET.get('page')
     authors = p.get_page(page)
     return render(request, 'authors/authors_list.html', {'authors': authors})
