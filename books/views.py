@@ -13,8 +13,6 @@ from reviews.forms.review_form import ReviewForm
 from authors.models import Author
 from .models import Book
 from accounts.decorators import allowed_users, admin_only
-from django.db.models import Value as V
-from django.db.models.functions import Concat
 from django.contrib import messages
 
 
