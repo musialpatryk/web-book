@@ -13,6 +13,7 @@ from reviews.forms.review_form import ReviewForm
 from authors.models import Author
 from .models import Book
 from accounts.decorators import allowed_users, admin_only
+from django.contrib import messages
 
 
 @login_required(login_url='accounts:login')
@@ -86,6 +87,7 @@ def book_accept(request):
         book = Book.objects.get(pk=book_id)
         book.status = 'A'
         book.save()
+        book_status_change_message(request)
 
     return HttpResponseRedirect(reverse('books:requests'))
 
@@ -98,8 +100,12 @@ def book_reject(request):
         book = Book.objects.get(pk=book_id)
         book.status = 'R'
         book.save()
+        book_status_change_message(request)
 
     return HttpResponseRedirect(reverse('books:requests'))
+
+def book_status_change_message(request):
+    messages.success(request, 'Pomyslnie zmieniono status ksiazki')
 
 
 @login_required(login_url='accounts:login')
@@ -108,7 +114,7 @@ def book_delete(request, pk):
     if request.method == 'POST':
         book = Book.objects.get(pk=pk)
         book.delete()
-
+        messages.success(request, 'Pomyslnie usunieto ksiazke')
         return HttpResponseRedirect("/books/")
 
 
