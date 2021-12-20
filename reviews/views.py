@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from books.models import Review, Book
+from books.models import Book
+from reviews.models import Review
 from django.http import HttpResponseRedirect
 from .forms.review_form import ReviewForm
 from .services import rating_service
@@ -30,6 +31,7 @@ def review_create(request):
     form = ReviewForm()
     return render(request, 'reviews/review_create.html', {'form': form})
 
+
 def review_change_status(request, status):
     if request.method != 'POST':
         return HttpResponseRedirect('/')
@@ -48,11 +50,14 @@ def review_change_status(request, status):
     messages.success(request, 'Pomyslnie zmieniono status recenzji')
     return HttpResponseRedirect('/')
 
+
 def accept_review(request):
     return review_change_status(request, Review.STATUS_ACCEPTED)
 
+
 def reject_review(request):
     return review_change_status(request, Review.STATUS_REJECTED)
+
 
 def review_list(request):
     reviews = Review.objects.filter(status=Review.STATUS_PENDING)
