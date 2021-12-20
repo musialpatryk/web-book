@@ -7,9 +7,11 @@ class RoleRequestManager(models.Manager):
     def create_role_request(
             self,
             message,
+            user
     ):
         return self.create(
-            message = message
+            message = message,
+            user = user
         )
 
 

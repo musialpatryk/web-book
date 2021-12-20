@@ -5,7 +5,7 @@
     <form method="post" action="{% url 'role_requests:create' %}" >
         {% csrf_token %}
 
-        {{form.message}}}
+        {{form.message}}
         <button type="submit" class="btn btn-success">Zgłoś się!</button>
     </form>
 {% endblock %}

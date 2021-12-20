@@ -9,7 +9,7 @@ class RoleRequestForm(forms.Form):
     }
     message = forms.CharField(max_length=255)
 
-    role = forms.IntegerField(default = RoleRequest.ROLE_REQUEST_ADMIN)
+    # role = forms.IntegerField(default = RoleRequest.ROLE_REQUEST_ADMIN)
 
     def __init__(self, *args, book=None, **kwargs):
         super(RoleRequestForm, self).__init__(*args, **kwargs)
