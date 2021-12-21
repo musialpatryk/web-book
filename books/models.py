@@ -78,6 +78,7 @@ class FavoriteBooks(AbstractEntity):
 
 # Optional
 
+
 class Series(AbstractEntity):
     name = models.CharField(max_length=30, default="None")
     authors = models.ManyToManyField(Author)
