@@ -1,23 +1,18 @@
 from django import forms
+from role_requests.models import RoleRequest
 
 
-class ReviewForm(forms.Form):
+class RoleRequestForm(forms.Form):
 
     placeholders = {
-        'vote': 'Ocena',
-        'review': 'Recenzja'
+        'message': 'Powód dla którego chcesz zostać moderatorem'
     }
-    review = forms.CharField(max_length=255)
+    message = forms.CharField(max_length=255)
 
-    vote = forms.IntegerField()
-    book_id = forms.IntegerField(widget=forms.NumberInput(attrs={'hidden': True}))
+    # role = forms.IntegerField(default = RoleRequest.ROLE_REQUEST_ADMIN)
 
     def __init__(self, *args, book=None, **kwargs):
-        super(ReviewForm, self).__init__(*args, **kwargs)
-        if book:
-            self.book = book
-            self.fields['book_id'].initial = book.id
-
+        super(RoleRequestForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs.update({
                 'class': 'form-control mb-2',

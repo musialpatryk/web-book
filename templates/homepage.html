@@ -1,10 +1,26 @@
 {% extends "base_layout.html" %}
 
 {% block content %}
-<div class="card">
-    <h1 class="card-header">Homepage title</h1>
-    <div class="card-body">
-        <p>Homepage content.</p>
-    </div>
+<div>
+    <H1>Polecane na dzisiaj</H1>
+    {% include "carousel_1.html" %}
+    <br>
+    <H1>Znajdź coś dla siebie</H1>
+    {% include "carousel_2.html" %}
+    <br>
+    <H1>Najchętniej oceniane</H1>
+    {% include "carousel_3.html" %}
+    <br>
+    <H1>Top 3</H1>
+    {% include "carousel_4.html" %}
+    <br>
+    <H1>Nowo dodane</H1>
+    {% include "carousel_5.html" %}
 </div>
+<div>
+    {% include "footer.html" %}
+</div>
+
+
+
 {% endblock %}

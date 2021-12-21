@@ -53,12 +53,12 @@ class Book(AbstractEntity):
         ("R", "Rejected")
     )
     authors = models.ManyToManyField(Author)
-    title = models.CharField(max_length=50, default="None")
+    title = models.CharField(max_length=100, default="None")
     description = models.TextField(default="None")
     genre = models.ManyToManyField(Genre)
     rating = models.IntegerField(default=0)
     pages = models.IntegerField(default=None)
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=100)
     publishDate = models.DateTimeField(null=True, blank=True)
     status = models.CharField(choices=STATUS, max_length=10, default="P")
     image = models.ImageField(default='book_images/BookDefault.png',
@@ -76,39 +76,6 @@ class FavoriteBooks(AbstractEntity):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
-class ReviewManager(models.Manager):
-    def create_review(
-            self,
-            vote,
-            review,
-            book,
-            user
-    ):
-        return self.create(
-            vote = vote,
-            review = review,
-            book = book,
-            user = user
-        )
-
-
-class Review(AbstractEntity):
-    STATUS_PENDING = 0
-    STATUS_REJECTED = 1
-    STATUS_ACCEPTED = 2
-    objects = ReviewManager()
-
-    vote = models.IntegerField(default=0,
-                               validators=[
-                                   MaxValueValidator(5),
-                                   MinValueValidator(0),
-                               ])
-    book = models.ForeignKey("books.Book", on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    review = models.CharField(max_length=30, default="None")
-    status = models.IntegerField(default=STATUS_PENDING)
-    upvotes = models.IntegerField(default=0)
-    downvotes = models.IntegerField(default=0)
 # Optional
 
 

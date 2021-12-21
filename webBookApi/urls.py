@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^books/', include('books.urls')),
     url(r'^reviews/', include('reviews.urls')),
+    url(r'^role_requests/', include('role_requests.urls')),
     url(r'^authors/', include('authors.urls')),
     url(r'^about/$', views.about),
     url(r'^$', views.home),

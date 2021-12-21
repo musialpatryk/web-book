@@ -1,5 +1,7 @@
-from books.models import Book, Review
+from books.models import Book
+from reviews.models import Review
 from django.db.models import Avg
+
 
 def recalculate_book_rating(book):
     book_rating = Review\
@@ -9,6 +11,7 @@ def recalculate_book_rating(book):
 
     book.rating = book_rating['rating']
     book.save()
+
 
 def recalculate_author_rating(authors):
     for author in authors:

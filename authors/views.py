@@ -5,12 +5,13 @@ from django.shortcuts import render
 from .models import Author
 from django.core.paginator import Paginator
 from accounts.decorators import allowed_users, admin_only
+from django.contrib import messages
 
 
 @login_required(login_url='accounts:login')
 @allowed_users(allowed_roles=['viewer', 'admin'])
 def authors_list(request):
-    p = Paginator(Author.objects.all().order_by('name'), 2)
+    p = Paginator(Author.objects.all().order_by('name'), 10)
     page = request.GET.get('page')
     authors = p.get_page(page)
     return render(request, 'authors/authors_list.html', {'authors': authors})
@@ -30,6 +31,7 @@ def author_delete(request, pk):
     if request.method == 'POST':
         author = Author.objects.get(pk=pk)
         author.delete()
+        messages.success(request, "Pomyslnie usunieto autora")
 
         return HttpResponseRedirect("/authors/")
 

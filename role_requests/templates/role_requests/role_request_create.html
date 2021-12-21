@@ -1,0 +1,11 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+    <h1 class="text-center mb-5"> Zgłoś chęć do zostania moderatorem </h1>
+    <form method="post" action="{% url 'role_requests:create' %}" >
+        {% csrf_token %}
+
+        {{form.message}}
+        <button type="submit" class="btn btn-success">Zgłoś się!</button>
+    </form>
+{% endblock %}

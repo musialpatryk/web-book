@@ -2,6 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
+
+from reviews.models import Review
 from .forms.requests_list_form import RequestListForm
 from .models import Genre
 from books.forms.request_form import BookRequestForm
@@ -16,12 +18,13 @@ from accounts.models import get_users
 from django.core.mail import send_mail
 from django.db.models import Value as V
 from django.db.models.functions import Concat
+from django.contrib import messages
 
 
 @login_required(login_url='accounts:login')
 @allowed_users(allowed_roles=['viewer', 'admin'])
 def book_list(request):
-    p = Paginator(Book.objects.filter(status='A').order_by('publishDate'), 2)
+    p = Paginator(Book.objects.filter(status='A').order_by('publishDate'), 10)
     page = request.GET.get('page')
     books = p.get_page(page)
     return render(request, 'books/book_list.html', {'books': books})
@@ -31,8 +34,9 @@ def book_list(request):
 @allowed_users(allowed_roles=['viewer', 'admin'])
 def book_details(request, slug):
     book = Book.objects.get(slug=slug)
+    display_reviews = Review.objects.filter(status=Review.STATUS_ACCEPTED, book=book).order_by('-vote')
     form = ReviewForm()
-    return render(request, 'books/book_details.html', {'book': book, 'form': form})
+    return render(request, 'books/book_details.html', {'book': book, 'form': form, 'display_reviews': display_reviews})
 
 
 @login_required(login_url='accounts:login')
@@ -78,7 +82,7 @@ def book_requests(request):
     forms = []
     for book in Book.objects.filter(status='P').order_by('-publishDate'):
         forms.append(RequestListForm(book=book))
-    p = Paginator(forms, 2)
+    p = Paginator(forms, 10)
     page = request.GET.get('page')
     forms = p.get_page(page)
 
@@ -93,6 +97,7 @@ def book_accept(request):
         book = Book.objects.get(pk=book_id)
         book.status = 'A'
         book.save()
+        book_status_change_message(request)
 
     recipients = get_users('viewer')
     mailing.send_mails('New Book has been added', 'Hi, Book: ' + book.title + ' was approved. Go to BookWeb and check it now \nhttp://127.0.0.1:8000/books/', recipients)
@@ -108,8 +113,12 @@ def book_reject(request):
         book = Book.objects.get(pk=book_id)
         book.status = 'R'
         book.save()
+        book_status_change_message(request)
 
     return HttpResponseRedirect(reverse('books:requests'))
+
+def book_status_change_message(request):
+    messages.success(request, 'Pomyslnie zmieniono status ksiazki')
 
 
 @login_required(login_url='accounts:login')
@@ -118,7 +127,7 @@ def book_delete(request, pk):
     if request.method == 'POST':
         book = Book.objects.get(pk=pk)
         book.delete()
-
+        messages.success(request, 'Pomyslnie usunieto ksiazke')
         return HttpResponseRedirect("/books/")
 
 
