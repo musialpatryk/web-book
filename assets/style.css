@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap');
+
+/* Global */
+
+*, *:before, *:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --secondary-font: 'Hammersmith One', sans-serif
+}
+
+body{
+    height:100vh;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+}
+
+.alert-sm {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.8rem !important;
+}
+
+/* Navbar styles */
+.brand-name {
+    font-family: var(--secondary-font);
+
+}
+
+/* Login page */
+
+.login-page{
+    width: 550px;
+    min-height: 550px;
+}
+
+.not-logged {
+    margin-top: 15vh;
+}
+
+.checked {
+  color: orange;
+}
+
+.btn-rating{
+    background-color: inherit; !important;
+    border: 0 !important;
+}
