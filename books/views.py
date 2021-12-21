@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from django.urls import reverse
 
+from reviews.models import Review
 from .forms.requests_list_form import RequestListForm
 from .models import Genre
 from books.forms.request_form import BookRequestForm
@@ -28,8 +29,9 @@ def book_list(request):
 @allowed_users(allowed_roles=['viewer', 'admin'])
 def book_details(request, slug):
     book = Book.objects.get(slug=slug)
+    display_reviews = Review.objects.filter(status=Review.STATUS_ACCEPTED, book=book).order_by('-vote')
     form = ReviewForm()
-    return render(request, 'books/book_details.html', {'book': book, 'form': form})
+    return render(request, 'books/book_details.html', {'book': book, 'form': form, 'display_reviews': display_reviews})
 
 
 @login_required(login_url='accounts:login')
