@@ -25,6 +25,14 @@ def role_request_create(request):
         if role_request is not None:
             messages.success(request, "Mozna zlozyc tylko jedno podanie na moderatora na raz")
             return HttpResponseRedirect('/')
+
+        for group in request.user.groups.all():
+            if group.name == "admin":
+                messages.success(request, "Nie trzeba przyznawać uprawnień")
+                return HttpResponseRedirect('/')
+
+        return HttpResponseRedirect('/')
+
         role_request = RoleRequest.objects.create_role_request(
             request.POST['message'],
             request.user
