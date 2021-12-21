@@ -31,8 +31,6 @@ def role_request_create(request):
                 messages.success(request, "Nie trzeba przyznawać uprawnień")
                 return HttpResponseRedirect('/')
 
-        return HttpResponseRedirect('/')
-
         role_request = RoleRequest.objects.create_role_request(
             request.POST['message'],
             request.user
