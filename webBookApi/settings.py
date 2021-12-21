@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'books',
     'reviews',
+    'role_requests',
     'accounts',
     'authors',
     'fontawesomefree',

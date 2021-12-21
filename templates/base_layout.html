@@ -57,6 +57,9 @@
               <a class="nav-link" href="/about">O serwisie</a>
             </li>
 
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'role_requests:create' %}">Aplikuj na moderatora</a>
+            </li>
               {% if request.user.is_staff %}
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle"
@@ -72,6 +75,9 @@
                     </li>
                     <li>
                       <a class="dropdown-item" href="{% url 'reviews:list' %}">Recenzje do akceptacji</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{% url 'role_requests:list' %}">Podania o moderatora</a>
                     </li>
                   </ul>
              </li>
