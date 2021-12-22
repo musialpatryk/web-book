@@ -32,11 +32,12 @@ def book_list(request):
 
 @login_required(login_url='accounts:login')
 @allowed_users(allowed_roles=['viewer', 'admin'])
-def book_details(request, bookslug):
+def book_details(request, slug):
     try:
-        book = Book.objects.get(slug=bookslug, status = 'A')
+        book = Book.objects.get(slug=slug, status = 'A')
     except:
         raise Http404()
+
     display_reviews = Review.objects.filter(status=Review.STATUS_ACCEPTED, book=book).order_by('-vote')
 
     form = ReviewForm()
