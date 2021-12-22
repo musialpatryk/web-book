@@ -17,11 +17,7 @@
                             <h2 class="col">{{ book.title }}</h2>
 
                             <div class="col-2 mt-2 fs-5 text-end">
-                                <span class="fa fa-star btn-rating {% if book.rating >= 1 %} checked {% endif %}}}"></span>
-                                <span class="fa fa-star btn-rating {% if book.rating >= 2 %} checked {% endif %}"></span>
-                                <span class="fa fa-star btn-rating {% if book.rating >= 3 %} checked {% endif %}"></span>
-                                <span class="fa fa-star btn-rating {% if book.rating >= 4 %} checked {% endif %}"></span>
-                                <span class="fa fa-star btn-rating {% if book.rating >= 5 %} checked {% endif %}"></span>
+                                {% include "review_stars.html" with rating=book.rating %}
                             </div>
                         </div>
 
