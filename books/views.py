@@ -1,18 +1,23 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404, redirect
-
 from django.urls import reverse
 
+from reviews.models import Review
 from .forms.requests_list_form import RequestListForm
 from .models import Genre
 from books.forms.request_form import BookRequestForm
 from django.core.paginator import Paginator
-
 from reviews.forms.review_form import ReviewForm
 from authors.models import Author
+from general import mailing
 from .models import Book
 from accounts.decorators import allowed_users, admin_only
+from accounts.models import get_users
+
+from django.core.mail import send_mail
+from django.db.models import Value as V
+from django.db.models.functions import Concat
 from django.contrib import messages
 
 
@@ -32,9 +37,10 @@ def book_details(request, bookslug):
         book = Book.objects.get(slug=bookslug, status = 'A')
     except:
         raise Http404()
+    display_reviews = Review.objects.filter(status=Review.STATUS_ACCEPTED, book=book).order_by('-vote')
 
     form = ReviewForm()
-    return render(request, 'books/book_details.html', {'book': book, 'form': form})
+    return render(request, 'books/book_details.html', {'book': book, 'form': form, 'display_reviews': display_reviews})
 
 
 @login_required(login_url='accounts:login')
@@ -54,7 +60,11 @@ def book_create(request):
             request.FILES['image']
         )
 
+
         new_book.save()
+
+        recipients = get_users('admin')
+        mailing.send_mails('New Book Added', 'Hi, New item added to your request list \nhttp://127.0.0.1:8000/books/requests/', recipients)
 
         return HttpResponseRedirect('/')
 
@@ -92,6 +102,9 @@ def book_accept(request):
         book.status = 'A'
         book.save()
         book_status_change_message(request)
+
+    recipients = get_users('viewer')
+    mailing.send_mails('New Book has been added', 'Hi, Book: ' + book.title + ' was approved. Go to BookWeb and check it now \nhttp://127.0.0.1:8000/books/', recipients)
 
     return HttpResponseRedirect(reverse('books:requests'))
 

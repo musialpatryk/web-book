@@ -56,3 +56,6 @@ Hasło: user
 Grupy: brak
 ```
 
+## Gmail Account
+- Login: djangoProjectWeb@gmail.com
+- Pass: B3dzi3Pi3c?
