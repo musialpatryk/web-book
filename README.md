@@ -58,3 +58,5 @@ Hasło: user
 Grupy: brak
 ```
 
+## Dane do fixtures'ów
+Książki wraz z autorami zostały wygenerowane za pomocą [przygotowanej aplikacji]((https://github.com/musialpatryk/web-book-fixtures-generator)) pobierającej dane z Google Book Api i formatującej dane w formacie odpowiadającym potrzebnym fixturesom.
