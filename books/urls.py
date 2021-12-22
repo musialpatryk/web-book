@@ -10,6 +10,6 @@ urlpatterns = [
     url(r'^remove/(?P<pk>\d+)/$', views.book_delete, name="remove_book"),
     url(r'^requests/$', views.book_requests, name="requests"),
     url('^search/', views.search_book, name='search'),
-    url(r'^(?P<slug>[\w-]+)/$', views.book_details, name="details"),
+    url(r'^(?P<bookslug>[\w-]+)/$', views.book_details, name="details"),
 ]
 
