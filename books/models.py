@@ -4,7 +4,7 @@ from general.models import AbstractEntity
 from django.db import models
 from authors.models import Author
 from django.contrib.auth.models import User
-from django.core.validators import MaxValueValidator, MinValueValidator, FileExtensionValidator
+from django.core.validators import FileExtensionValidator
 
 from helpers.random_photo import get_random_photo
 
@@ -63,8 +63,11 @@ class Book(AbstractEntity):
     slug = models.SlugField(max_length=100)
     publishDate = models.DateTimeField(null=True, blank=True)
     status = models.CharField(choices=STATUS, max_length=10, default="P")
-    image = models.ImageField(default=(get_random_photo()),
-                              upload_to='book_images', validators=[FileExtensionValidator(allowed_extensions=['png'])])
+    image = models.ImageField(
+        default='default_book_1.jpg',
+        upload_to='book_images',
+        validators=[FileExtensionValidator(allowed_extensions=['png'])]
+    )
 
     def __str__(self):
         return self.title

@@ -3,26 +3,14 @@
 {% block content %}
     <h1 class="text-center mb-5">Recenzje czekające na akceptacje</h1>
         {% if not reviews %}
-            <h3>Brak nowych zgłoszeń</h3>
+            <h3 class="mb-4">Brak nowych zgłoszeń</h3>
         {% endif %}
 
         {% for review in reviews %}
-            <div class="d-flex">
-                <div class="w-75">
-                {% include "reviews/review_snippet.html" with review=review %}
-                </div>
-                <div class="w-25 my-3 d-flex justify-content-around align-items-center" style="flex-direction: column">
-                    <form method="post" action="{% url 'reviews:accept' %}">
-                        {% csrf_token %}
-                        <input type="number" value={{review.id}} id="review_id_1" name="review_id" hidden>
-                        <button type="submit" class="btn btn-success" style="width: 100px;">Zaakceptuj</button>
-                    </form>
-                    <form method="post" action="{% url 'reviews:reject' %}">
-                        {% csrf_token %}
-                        <input type="number" value={{review.id}} id="review_id_2" name="review_id" hidden>
-                        <button type="submit" class="btn btn-danger" style="width: 100px;">Odrzuć</button>
-                    </form>
-                </div>
+            <div class="mb-4">
+                {% include "reviews/review_snippet.html" with review=review review_accept=True %}
             </div>
         {% endfor %}
+
+    {% include "pagination.html" with items=reviews %}
 {% endblock %}
