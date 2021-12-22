@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
@@ -33,8 +33,13 @@ def book_list(request):
 @login_required(login_url='accounts:login')
 @allowed_users(allowed_roles=['viewer', 'admin'])
 def book_details(request, slug):
-    book = Book.objects.get(slug=slug)
+    try:
+        book = Book.objects.get(slug=slug, status = 'A')
+    except:
+        raise Http404()
+
     display_reviews = Review.objects.filter(status=Review.STATUS_ACCEPTED, book=book).order_by('-vote')
+
     form = ReviewForm()
     return render(request, 'books/book_details.html', {'book': book, 'form': form, 'display_reviews': display_reviews})
 
