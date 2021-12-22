@@ -4,9 +4,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
 from reviews.models import Review
+from .forms.request_form import BookRequestForm
 from .forms.requests_list_form import RequestListForm
 from .models import Genre
-from books.forms.request_form import BookRequestForm
 from django.core.paginator import Paginator
 from reviews.forms.review_form import ReviewForm
 from authors.models import Author
@@ -55,7 +55,6 @@ def book_create(request):
             book_data['publishDate'],
             request.FILES['image']
         )
-
 
         new_book.save()
 
@@ -117,6 +116,7 @@ def book_reject(request):
 
     return HttpResponseRedirect(reverse('books:requests'))
 
+
 def book_status_change_message(request):
     messages.success(request, 'Pomyslnie zmieniono status ksiazki')
 
@@ -136,13 +136,13 @@ def book_delete(request, pk):
 def search_book(request):
     book_get = request.GET
     name = book_get.get("title")
-    if Book.objects.filter(title__icontains=name).exists():
-        book = Book.objects.filter(title__icontains=name)
-        author = Author.objects.filter(book__title__icontains=name)
+    if Book.objects.filter(title__icontains=name, status='A').exists():
+        book = Book.objects.filter(title__icontains=name, status='A')
+        author = Author.objects.filter(book__title__icontains=name, status='A')
         return render(request, 'books/book_search.html', {'books': book, 'authors': author})
-    elif Book.objects.filter(authors__name__icontains=name).exists():
-        book = Book.objects.filter(authors__name__icontains=name)
-        author = Author.objects.filter(name__icontains=name)
+    elif Book.objects.filter(authors__name__icontains=name, status='A').exists():
+        book = Book.objects.filter(authors__name__icontains=name, status='A')
+        author = Author.objects.filter(name__icontains=name, status='A')
         return render(request, 'books/book_search.html', {'books': book, 'authors': author})
     else:
         return render(request, 'books/book_not_found.html', {'name': name})
