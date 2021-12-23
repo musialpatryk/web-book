@@ -16,12 +16,6 @@
     </head>
     <body>
 
-    {% for msg in messages %}
-    <div class="alert alert-primary" role="alert">
-        {{msg}}
-    </div>
-    {% endfor %}
-
     {% if request.user.is_authenticated %}
      <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
       <div class="container">
@@ -57,9 +51,12 @@
               <a class="nav-link" href="/about">O serwisie</a>
             </li>
 
+            {% if not request.user.is_staff %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'role_requests:create' %}">Aplikuj na moderatora</a>
             </li>
+            {% endif %}
+
               {% if request.user.is_staff %}
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle"
@@ -100,7 +97,6 @@
                     <li>
                         <form action="{% url 'accounts:login' %}" class="dropdown-item" method="get">
                             {% csrf_token %}
-                            <!--User: {{user}}-->
                             <button type="submit" class="dropdown-item">Login</button>
                         </form>
                         <div class="dropdown-divider"></div>
@@ -146,6 +142,14 @@
     {% if request.user.is_authenticated %}
         {% include "footer.html" %}
     {% endif %}
+
+    {% for msg in messages %}
+    <div class="message-container">
+         <div class="alert alert-warning" role="alert">
+            <h5 class="alert-heading text-center">{{msg}}</h5>
+        </div>
+     </div>
+    {% endfor %}
 
     <script src="{% static 'js/bootstrap.js' %}"></script>
     </body>

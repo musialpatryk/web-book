@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from .models import RoleRequest
 from django.http import HttpResponseRedirect
@@ -11,7 +12,9 @@ from django.contrib.auth.decorators import login_required
 @admin_only
 @login_required(login_url='accounts:login')
 def role_request_list(request):
-    role_requests = RoleRequest.objects.filter(status=RoleRequest.STATUS_PENDING)
+    p = Paginator(RoleRequest.objects.filter(status=RoleRequest.STATUS_PENDING), 10)
+    page = request.GET.get('page')
+    role_requests = p.get_page(page)
     return render(request, 'role_requests/role_request_list.html', {'role_requests': role_requests})
 
 

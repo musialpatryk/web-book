@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from books.models import Book
 from reviews.models import Review
@@ -30,7 +31,6 @@ def review_create(request):
         messages.success(request, 'Recenzja została dodana i oczekuje na akceptację')
         return HttpResponseRedirect('/')
 
-    book = Book.objects.get(slug='test')
     form = ReviewForm()
     return render(request, 'reviews/review_create.html', {'form': form})
 
@@ -65,5 +65,7 @@ def reject_review(request):
 @login_required(login_url='accounts:login')
 @admin_only
 def review_list(request):
-    reviews = Review.objects.filter(status=Review.STATUS_PENDING)
+    p = Paginator(Review.objects.filter(status=Review.STATUS_PENDING), 10)
+    page = request.GET.get('page')
+    reviews = p.get_page(page)
     return render(request, 'reviews/review_list.html', {'reviews': reviews})

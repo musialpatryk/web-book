@@ -3,7 +3,7 @@
 {% block content %}
     <h1 class="text-center mb-5">Książki czekające na akceptacje</h1>
         {% if not forms %}
-            <h3>Brak nowych zgłoszeń</h3>
+            <h3 class="mb-4">Brak nowych zgłoszeń</h3>
         {% endif %}
 
         {% for form in forms %}

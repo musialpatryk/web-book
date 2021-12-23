@@ -1,18 +1,26 @@
 <div class="my-3 card container">
     <div class="card-body d-flex row">
-        <div class="col-2">
-            <div class="w-100 h-100 bg-dark text-light">
-                <img src="" alt="example photo" style="width: 100%;height: auto"/>
-            </div>
-        </div>
-        <div class="col-10">
+        <div class="col">
             <div class="row">
                 <div class="col-10">
-                    <h2>
-                        <a class="text-decoration-none link-secondary">
-                            {{ role_request.message }}
-                        </a>
-                    </h2>
+                    <p class="fs-5"><b>Powód:</b> {{ role_request.message }}</p>
+                </div>
+                <div class="col text-end">
+
+                    {% if request.user.is_staff %}
+                        <div class="mt-3">
+                            <form method="post" action="{% url 'role_requests:accept' %}">
+                                {% csrf_token %}
+                                <input type="number" value={{role_request.id}} id="review_id_1" name="role_request_id" hidden>
+                                <button type="submit" class="btn btn-success btn-sm" style="width: 100px;">Zaakceptuj</button>
+                            </form>
+                            <form method="post" class="mt-2" action="{% url 'role_requests:reject' %}">
+                                {% csrf_token %}
+                                <input type="number" value={{role_request.id}} id="review_id_2" name="role_request_id" hidden>
+                                <button type="submit" class="btn btn-danger btn-sm" style="width: 100px;">Odrzuć</button>
+                            </form>
+                        </div>
+                     {% endif %}
                 </div>
             </div>
         </div>

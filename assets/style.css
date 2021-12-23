@@ -38,6 +38,13 @@ body{
     font-size: 0.8rem !important;
 }
 
+.message-container {
+    position: fixed;
+    left: 30%;
+    right: 30%;
+    bottom: 10px;
+}
+
 /* Navbar styles */
 .brand-name {
     font-family: var(--secondary-font);
@@ -90,3 +97,4 @@ body{
 .carousel-item img {
     filter: brightness(50%);
 }
+
