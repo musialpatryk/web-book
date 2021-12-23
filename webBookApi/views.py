@@ -6,11 +6,11 @@ from helpers.carousel_tool import get_most_rated_books, get_random_context, get_
 
 @login_required(login_url='accounts:login')
 def home(request):
-    books_today = Book.objects.all().order_by("?")
-    book_for_you = Book.objects.all().order_by("?")
+    books_today = Book.objects.filter(status='A').order_by("?")
+    book_for_you = Book.objects.filter(status='A').order_by("?")
     most_rated_books = get_most_rated_books()
-    books_top = Book.objects.all().order_by('-rating')
-    book_new = Book.objects.all().order_by('-publishDate')
+    books_top = Book.objects.filter(status='A').order_by('-rating')
+    book_new = Book.objects.filter(status='A').order_by('-publishDate')
 
     context = {
         'today_list': get_random_context(books_today, 5),

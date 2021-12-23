@@ -15,7 +15,7 @@ def get_random_context(book_list, count=3):
     return context
 
 def get_most_rated_books():
-    most_rated_query = 'select b.id, count(br.id) as reviews_review from books_book b left join reviews_review br on b.id = br.book_id group by b.id order by reviews_review desc'
+    most_rated_query = "select b.id, count(br.id) as reviews_review from books_book b left join reviews_review br on b.id = br.book_id where b.status='A'group by b.id order by reviews_review desc"
     books = []
     for p in Book.objects.raw(most_rated_query):
         books.append(p)
