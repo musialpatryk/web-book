@@ -4,27 +4,38 @@ from reviews.models import Review
 from django.http import HttpResponseRedirect
 from .forms.review_form import ReviewForm
 from .services import rating_service
+from django.contrib import messages
+from accounts.decorators import allowed_users, admin_only
+from django.contrib.auth.decorators import login_required
 
 
-# Create your views here.
+@login_required(login_url='accounts:login')
+@allowed_users(allowed_roles=['viewer', 'admin'])
 def review_create(request):
     if request.method == 'POST':
         review_data = request.POST
+        vote = int(review_data['vote'])
+
+        if vote > 5 or vote < 0:
+            messages.success(request, 'Oddany głos powinien mieścić się w przedziale od 1 do 5')
+            return HttpResponseRedirect('/')
+
         review = Review.objects.create_review(
-            review_data['vote'],
+            vote,
             review_data['review'],
             Book.objects.get(id=review_data['book_id']),
             request.user
-            # review_data['book_id']
         )
         review.save()
+        messages.success(request, 'Recenzja została dodana i oczekuje na akceptację')
         return HttpResponseRedirect('/')
 
     book = Book.objects.get(slug='test')
     form = ReviewForm()
     return render(request, 'reviews/review_create.html', {'form': form})
 
-
+@login_required(login_url='accounts:login')
+@admin_only
 def review_change_status(request, status):
     if request.method != 'POST':
         return HttpResponseRedirect('/')
@@ -40,6 +51,7 @@ def review_change_status(request, status):
         rating_service.recalculate_book_rating(review.book)
         rating_service.recalculate_author_rating(review.book.authors.all())
 
+    messages.success(request, 'Pomyslnie zmieniono status recenzji')
     return HttpResponseRedirect('/')
 
 
@@ -50,7 +62,8 @@ def accept_review(request):
 def reject_review(request):
     return review_change_status(request, Review.STATUS_REJECTED)
 
-
+@login_required(login_url='accounts:login')
+@admin_only
 def review_list(request):
     reviews = Review.objects.filter(status=Review.STATUS_PENDING)
     return render(request, 'reviews/review_list.html', {'reviews': reviews})
