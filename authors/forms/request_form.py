@@ -7,7 +7,6 @@ class AuthorRequestForm(forms.Form):
         'description': 'Opis',
         'birthDate': 'Data urodzenia',
         'slug': 'Pseudonim',
-        'rating': 'Ocena'
     }
 
     name = forms.CharField(
@@ -26,9 +25,7 @@ class AuthorRequestForm(forms.Form):
     slug = forms.CharField(
         max_length=100,
     )
-    rating = forms.IntegerField(
-        max_value=5,
-    )
+
     image = forms.ImageField()
 
     def __init__(self, *args, genre=None, **kwargs):

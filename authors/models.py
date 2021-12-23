@@ -12,7 +12,6 @@ class AuthorManager(models.Manager):
             description,
             birthDate,
             slug,
-            rating,
             image
     ):
 

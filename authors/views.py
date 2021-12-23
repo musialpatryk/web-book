@@ -55,7 +55,6 @@ def authors_create(request):
             authors_data['description'],
             authors_data['birthDate'],
             authors_data['slug'],
-            authors_data['rating'],
             request.FILES['image']
         )
 
@@ -66,9 +65,6 @@ def authors_create(request):
 
         return HttpResponseRedirect('/')
 
-    # author_options = []
-    # for author in Author.objects.all():
-    #     author_options.append((author.id, author.__str__()))
 
     genre_options = []
     for genre in Genre.objects.all():
