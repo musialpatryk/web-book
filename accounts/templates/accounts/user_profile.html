@@ -7,19 +7,19 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header bg-info text-white">
-                User Detail Page
+                Szczegóły konta
             </div>
             <div class="row p-3">
                 <div class="col-md-8">
                     <table class="table table-borderless">
                         <thead>
-                            <span class="h4">Porfile Information</span><br>
-                            <a class="btn btn-info btn-sm float-right" href="{% url 'accounts:profileUpdate' %}">Edit</a>
+                            <span class="h4">Informacje o Profilu</span><br>
+                            <a class="btn btn-info btn-sm float-right" href="{% url 'accounts:profileUpdate' %}">Edytuj</a>
                             <hr>
                         </thead>
                         <tbody>
                             <tr>
-                                <th scope="row">Name</th>
+                                <th scope="row">Login</th>
                                 <td>{{ user.username }}</td>
                             </tr>
                             <tr>
@@ -27,11 +27,11 @@
                                 <td>{{ user.email }}</td>
                             </tr>
                             <tr>
-                                <th scope="row">Phone</th>
+                                <th scope="row">Telefon</th>
                                 <td>{{ user.profile.phone }}</td>
                             </tr>
                             <tr>
-                                <th scope="row">Address</th>
+                                <th scope="row">Adres</th>
                                 <td>{{ user.profile.address }}</td>
                             </tr>
                         </tbody>
