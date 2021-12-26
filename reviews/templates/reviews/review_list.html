@@ -8,7 +8,7 @@
 
         {% for review in reviews %}
             <div class="mb-4">
-                {% include "reviews/review_snippet.html" with review=review review_accept=True %}
+                {% include "reviews/review_snippet.html" with review=review %}
             </div>
         {% endfor %}
 

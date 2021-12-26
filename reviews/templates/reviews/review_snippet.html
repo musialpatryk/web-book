@@ -3,6 +3,7 @@
         <div class="col">
             <div class="row">
                 <div class="col-10">
+                    <p class="fs-5"><b>Użytkownik:</b> {{ review.user }}</p>
                     <p class="fs-5"><b>Treść:</b> {{ review.review }}</p>
                 </div>
                 <div class="col text-end">
@@ -10,7 +11,7 @@
                       {% include "review_stars.html" with rating=review.vote %}
                     </div>
 
-                    {% if request.user.is_staff and review_accept %}
+                    {% if request.user.is_staff %}
                         <div class="mt-3">
                             <form method="post" action="{% url 'reviews:accept' %}">
                                 {% csrf_token %}

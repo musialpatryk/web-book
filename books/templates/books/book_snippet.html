@@ -9,9 +9,17 @@
                 <div class="row">
                     <div class="col-10">
                         <h2>
+                            {% if not book_request %}
                             <a class="text-decoration-none link-secondary" href="{% url 'books:details' slug=book.slug %}">
                                 {{ book.title | truncatewords:5 }}
                             </a>
+                            {% endif %}
+
+                            {% if book_request %}
+                            <span>
+                                {{ book.title | truncatewords:5 }}
+                            </span>
+                            {% endif %}
                         </h2>
                         <p>{{ book.snippet }}</p>
                     </div>

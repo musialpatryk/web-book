@@ -1,8 +1,8 @@
 from django.core.validators import FileExtensionValidator
+from django.utils.text import slugify
 
 from books.models import AbstractEntity
 from books.models import models
-from helpers.random_photo import get_random_photo
 
 
 class AuthorManager(models.Manager):
@@ -15,13 +15,17 @@ class AuthorManager(models.Manager):
             slug,
             image
     ):
+        author_slug = slugify(slug)
+        potential_slug_duplicate_len = len(self.filter(slug=author_slug))
+        if potential_slug_duplicate_len > 0:
+            author_slug += '-' + str(potential_slug_duplicate_len)
 
         author = self.create(
             name=name,
             description=description,
             birthDate=birthDate,
             rating=0,
-            slug=slug,
+            slug=author_slug,
             image=image,
         )
         author.genre.set([genre])
