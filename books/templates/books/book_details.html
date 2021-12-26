@@ -35,24 +35,26 @@
         <h2 class="container mt-5 mb-5 row height d-flex justify-content-center align-items-center">Opinie:</h2>
     </div>
     {% for display in display_reviews %}
-    <div class="container mt-5 mb-5">
-        <div class="row height d-flex justify-content-center align-items-center">
-            <div class="col-md-7">
-                <div class="card" style="height:150px">
-                    <div class="mt-2">
-                        <div class="d-flex flex-row p-3"> <img src="" width="40" height="40" class="rounded-circle mr-3">
-                            <div class="w-100">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="d-flex flex-row align-items-center"> <span class="mr-2">{{ display.user }}</span></div> <small>Ocena: {{ display.vote }}</small></div>
-                                    <p class="text-justify comment-text mb-0">{{ display.review }}</p>
-                                </div>
-                            </div>
-                        </div>
+
+
+<div class="card mt-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <h4 class="col fw-bold">{{ display.user }}</h4>
+
+                    <div class="col-2 mt-2 fs-5 text-end">
+                        {% include "review_stars.html" with rating=display.vote %}
                     </div>
                 </div>
             </div>
         </div>
+        <div class="mt-2">
+            <p class="fs-5"><b>Recenzja: </b>{{ display.review }}</p>
+        </div>
     </div>
+</div>
     {% endfor %}
 </div>
 
