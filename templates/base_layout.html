@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load has_group %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -51,13 +51,13 @@
               <a class="nav-link" href="/about">O serwisie</a>
             </li>
 
-            {% if not request.user.is_staff %}
+            {% if not request.user|has_group:"admin" %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'role_requests:create' %}">Aplikuj na moderatora</a>
             </li>
             {% endif %}
 
-              {% if request.user.is_staff %}
+              {% if request.user|has_group:"admin" %}
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle"
                      id="adminDropdown"
