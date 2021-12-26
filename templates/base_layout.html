@@ -44,9 +44,23 @@
                   </ul>
              </li>
 
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'authors:list' %}">Autorzy</a>
-            </li>
+             <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle"
+                     id="authorsDropdown"
+                     role="button"
+                     data-bs-toggle="dropdown"
+                     aria-expanded="false">
+                    Autorzy
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="bookDropdown">
+                    <li>
+                      <a class="dropdown-item" href="{% url 'authors:list' %}">Lista autorów</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{% url 'authors:create' %}">Dodaj autora</a>
+                    </li>
+                  </ul>
+             </li>
             <li class="nav-item">
               <a class="nav-link" href="/about">O serwisie</a>
             </li>
@@ -72,6 +86,9 @@
                     </li>
                     <li>
                       <a class="dropdown-item" href="{% url 'reviews:list' %}">Recenzje do akceptacji</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{% url 'authors:requests' %}">Autorzy do akceptacji</a>
                     </li>
                     <li>
                       <a class="dropdown-item" href="{% url 'role_requests:list' %}">Podania o moderatora</a>

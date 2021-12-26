@@ -1,0 +1,21 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+    <h1 class="text-center mb-5">Dodaj nowego autora</h1>
+    <form method="post" action="{% url 'authors:create' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{form.name}}
+
+        {{form.genre}}
+
+        {{form.description}}
+
+        {{form.birthDate}}
+
+        {{form.slug}}
+
+        {{ form.image }}
+        <button type="submit" class="btn btn-success">Zgłoś</button>
+    </form>
+{% endblock %}
