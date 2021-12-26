@@ -10,8 +10,12 @@ def get_context(book_list, count=3):
 
 def get_random_context(book_list, count=3):
     context = []
-    for i in range (count):
-        context.append(random.choice(book_list))
+    counter = 0
+    while counter < count:
+        book = random.choice(book_list)
+        if book not in context:
+            context.append(book)
+            counter += 1
     return context
 
 def get_most_rated_books():
