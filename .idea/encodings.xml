@@ -4,6 +4,6 @@
     <file url="file://$PROJECT_DIR$/fixtures/0001_Genre.json" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/fixtures/0002_Authors.json" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/fixtures/0003_Books.json" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/fixtures/0007_socialapplications.json" charset="UTF-16" />
+    <file url="file://$PROJECT_DIR$/fixtures/0008_socialapplications.json" charset="UTF-8" />
   </component>
 </project>
