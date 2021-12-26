@@ -15,20 +15,20 @@ class CreateUserForm(UserCreationForm):
         widgets = {
             'username': forms.TextInput(attrs={
                 'class': 'form-control mb-2',
-                'placeholder': 'Enter Username...',
+                'placeholder': 'Nazwa użytkownika.',
             }),
             'email': forms.EmailInput(attrs={
                 'class': 'form-control mb-2',
-                'placeholder': 'Enter Email...',
+                'placeholder': 'E-mail',
             })
         }
 
     def __init__(self, *args, **kwargs):
         super(CreateUserForm, self).__init__(*args, **kwargs)
         self.fields['password1'].widget = PasswordInput(
-            attrs={'class': 'form-control mb-2', 'placeholder': 'Enter Password...'})
+            attrs={'class': 'form-control mb-2', 'placeholder': 'Hasło'})
         self.fields['password2'].widget = PasswordInput(
-            attrs={'class': 'form-control mb-2', 'placeholder': 'Re-enter Password...'})
+            attrs={'class': 'form-control mb-2', 'placeholder': 'Podaj ponownie hasło'})
 
 
 class Profile(models.Model):

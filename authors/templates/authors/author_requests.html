@@ -3,43 +3,14 @@
 {% block content %}
     <h1 class="text-center mb-5">Autorzy czekające na akceptacje</h1>
         {% if not forms %}
-            <h3>Brak nowych zgłoszeń</h3>
+            <h3 class="mb-4">Brak nowych zgłoszeń</h3>
         {% endif %}
 
         {% for form in forms %}
-            <div class="d-flex">
-                <div class="w-75">
-                {% include "authors/author_snippet.html" with author=form.author %}
-                </div>
-                <div class="w-25 my-3 d-flex justify-content-around align-items-center" style="flex-direction: column">
-                    <form method="post" action="{% url 'authors:accept' %}">
-                        {% csrf_token %}
-                        {{form.author_id}}
-                        <button type="submit" class="btn btn-success" style="width: 100px;">Zaakceptuj</button>
-                    </form>
-                    <form method="post" action="{% url 'authors:reject' %}">
-                        {% csrf_token %}
-                        {{form.author_id}}
-                        <button type="submit" class="btn btn-danger" style="width: 100px;">Odrzuć</button>
-                    </form>
-                </div>
+            <div class="mb-4">
+                {% include "authors/author_snippet.html" with author=form.author author_request=True %}
             </div>
         {% endfor %}
-            <div class="">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        {% if forms.has_previous %}
-                            <li class="page-item"><a class="page-link" href="?page=1">&laquo First</a></li>
-                            <li class="page-item"><a class="page-link" href="?page={{ forms.previous_page_number }}">Previous</a></li>
-                        {% endif %}
 
-                        <li class="page-item"><a href="#" class="page-link">Page {{ forms.number }} of {{ forms.paginator.num_pages }}</a></li>
-
-                        {% if forms.has_next %}
-                            <li class="page-item"><a class="page-link" href="?page={{ forms.next_page_number }}">Next</a></li>
-                            <li class="page-item"><a class="page-link" href="?page={{ forms.paginator.num_pages }}">Last&raquo</a></li>
-                        {% endif %}
-                    </ul>
-                </nav>
-            </div>
+        {% include "pagination.html" with items=forms %}
 {% endblock %}
