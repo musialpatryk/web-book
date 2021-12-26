@@ -66,7 +66,7 @@ class Book(AbstractEntity):
     image = models.ImageField(
         default='default_book_1.jpg',
         upload_to='book_images',
-        validators=[FileExtensionValidator(allowed_extensions=['png'])]
+        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg'])]
     )
 
     def __str__(self):

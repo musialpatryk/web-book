@@ -46,7 +46,7 @@ class Author(AbstractEntity):
     image = models.ImageField(
         default='default_author_1.jpg',
         upload_to='author_images',
-        validators=[FileExtensionValidator(allowed_extensions=['png'])]
+        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg'])]
     )
 
     def __str__(self):
