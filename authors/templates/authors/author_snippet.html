@@ -1,3 +1,5 @@
+{% load has_group %}
+
 <div class="my-3 card container">
     <div class="card-body d-flex row">
         <div class="col-2">
@@ -32,7 +34,7 @@
                         {% include "review_stars.html" with rating=author.rating %}
                     </div>
 
-                     {% if request.user.is_staff and not author_request %}
+                     {% if request.user|has_group:"admin" and not author_request %}
                         <div class="mt-3">
                             <form method="POST" action="{% url 'authors:remove_author' pk=author.pk %}">
                                 {% csrf_token %}
@@ -44,7 +46,7 @@
 
 
 
-                     {% if request.user.is_staff and author_request %}
+                     {% if request.user|has_group:"admin" and author_request %}
                         <div class="mt-3">
                             <form method="post" action="{% url 'authors:accept' %}">
                                 {% csrf_token %}

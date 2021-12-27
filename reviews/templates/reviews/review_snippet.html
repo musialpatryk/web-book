@@ -1,3 +1,5 @@
+{% load has_group %}
+
 <div class="my-3 card container">
     <div class="card-body d-flex row">
         <div class="col">
@@ -11,7 +13,7 @@
                       {% include "review_stars.html" with rating=review.vote %}
                     </div>
 
-                    {% if request.user.is_staff %}
+                    {% if request.user|has_group:"admin" %}
                         <div class="mt-3">
                             <form method="post" action="{% url 'reviews:accept' %}">
                                 {% csrf_token %}
