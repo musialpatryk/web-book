@@ -16,6 +16,7 @@ from .models import Book
 from accounts.decorators import allowed_users, admin_only
 from accounts.models import get_users
 from django.contrib import messages
+from helpers.image_validator import validate_image
 
 
 @login_required(login_url='accounts:login')
@@ -49,6 +50,10 @@ def book_create(request):
 
         author = Author.objects.get(pk=int(book_data['author']))
         genre = Genre.objects.get(pk=int(book_data['genre']))
+        if not validate_image(request.FILES['image']):
+            messages.success(request, "Zły format obrazka, spróbuj ponownie")
+            return HttpResponseRedirect('/')
+
         new_book = Book.objects.create_book(
             book_data['title'],
             book_data['description'],
