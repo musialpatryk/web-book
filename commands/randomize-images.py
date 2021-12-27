@@ -9,3 +9,5 @@ for entry in Book.objects.all():
 for entry in Author.objects.all():
     entry.image = get_random_photo('author_images/', False)
     entry.save()
+
+print('Done')
