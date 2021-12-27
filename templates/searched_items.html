@@ -1,0 +1,23 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+
+    {% if books %}
+        <h1 class="text-center mb-5">Wyszukane książki</h1>
+        <div class="books">
+            {% for book in books %}
+                {% include "books/book_snippet.html" with book=book %}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <br/>
+    {% if authors %}
+        <h1 class="text-center mb-5">Wyszukani autorzy</h1>
+        <div class="books">
+            {% for author in authors %}
+                {% include "authors/author_snippet.html" with author=author %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+{% endblock %}
