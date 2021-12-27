@@ -3,18 +3,18 @@
 {% block content %}
 
 <div class="row my-4">
-    <div class="col-md-4"></div>
-    <div class="col-md-8">
+    <div class="col">
         <div class="card">
-            <div class="card-header bg-info text-white">
-                Szczegóły konta
+            <div class="card-header bg-secondary text-white">
+                Profil użytkownika
             </div>
             <div class="row p-3">
                 <div class="col-md-8">
                     <table class="table table-borderless">
                         <thead>
-                            <span class="h4">Informacje o Profilu</span><br>
-                            <a class="btn btn-info btn-sm float-right" href="{% url 'accounts:profileUpdate' %}">Edytuj</a>
+                            <a class="btn btn-info" href="{% url 'accounts:profileUpdate' %}">
+                                Edytuj
+                            </a>
                             <hr>
                         </thead>
                         <tbody>
@@ -23,7 +23,7 @@
                                 <td>{{ user.username }}</td>
                             </tr>
                             <tr>
-                                <th scope="row">Email</th>
+                                <th scope="row">E-mail</th>
                                 <td>{{ user.email }}</td>
                             </tr>
                             <tr>

@@ -9,27 +9,50 @@
                 <div class="row">
                     <div class="col-10">
                         <h2>
+                            {% if not book_request %}
                             <a class="text-decoration-none link-secondary" href="{% url 'books:details' slug=book.slug %}">
-                                {{ book.title }}
+                                {{ book.title | truncatewords:5 }}
                             </a>
+                            {% endif %}
+
+                            {% if book_request %}
+                            <span>
+                                {{ book.title | truncatewords:5 }}
+                            </span>
+                            {% endif %}
                         </h2>
-                    </div>
-                    <div class="col text-end">
-                        <p>{{ book.publishDate|date:"d.m.Y" }}</p>
-                    </div>
-                <div class="row">
-                    <div class="col-10">
                         <p>{{ book.snippet }}</p>
                     </div>
                     <div class="col text-end">
-                        <button type="submit" class="fa fa-star btn-rating {% if book.rating >= 1 %} checked {% endif %}}}"></button>
-                        <button type="submit" class="fa fa-star btn-rating {% if book.rating >= 2 %} checked {% endif %}"></button>
-                        <button type="submit" class="fa fa-star btn-rating {% if book.rating >= 3 %} checked {% endif %}"></button>
-                        <button type="submit" class="fa fa-star btn-rating {% if book.rating >= 4 %} checked {% endif %}"></button>
-                        <button type="submit" class="fa fa-star btn-rating {% if book.rating >= 5 %} checked {% endif %}"></button>
+                        <p>{{ book.publishDate|date:"d.m.Y" }}</p>
+                        <div class="col text-end">
+                            {% include "review_stars.html" with rating=book.rating %}
+                        </div>
+
+                        {% if request.user.is_staff and not book_request %}
+                        <div class="mt-3">
+                            <form method="POST" action="{% url 'books:remove_book' pk=book.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Usuń</button>
+                            </form>
+                        </div>
+                        {% endif %}
+
+                        {% if request.user.is_staff and book_request %}
+                        <div class="mt-3">
+                            <form method="post" action="{% url 'books:accept' %}">
+                                {% csrf_token %}
+                                {{form.book_id}}
+                                <button type="submit" class="btn btn-success btn-sm" style="width: 100px;">Zaakceptuj</button>
+                            </form>
+                            <form method="post" class="mt-2" action="{% url 'books:reject' %}">
+                                {% csrf_token %}
+                                {{form.book_id}}
+                                <button type="submit" class="btn btn-danger btn-sm" style="width: 100px;">Odrzuć</button>
+                            </form>
+                        </div>
+                        {% endif %}
                     </div>
-                    <br>
-                </div>
             </div>
             </div>
     </div>

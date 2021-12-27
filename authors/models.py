@@ -1,4 +1,5 @@
 from django.core.validators import FileExtensionValidator
+from django.utils.text import slugify
 
 from books.models import AbstractEntity
 from books.models import models
@@ -11,16 +12,19 @@ class AuthorManager(models.Manager):
             genre,
             description,
             birthDate,
-            slug,
             image
     ):
+        author_slug = slugify(name)
+        potential_slug_duplicate_len = len(self.filter(slug=author_slug))
+        if potential_slug_duplicate_len > 0:
+            author_slug += '-' + str(potential_slug_duplicate_len)
 
         author = self.create(
             name=name,
             description=description,
             birthDate=birthDate,
             rating=0,
-            slug=slug,
+            slug=author_slug,
             image=image,
         )
         author.genre.set([genre])
@@ -42,8 +46,11 @@ class Author(AbstractEntity):
     slug = models.SlugField(default="None")
     rating = models.IntegerField(default=0)
     status = models.CharField(choices=STATUS, max_length=10, default="P")
-    image = models.ImageField(default='book_images/BookDefault.png',
-                              upload_to='book_images', validators=[FileExtensionValidator(allowed_extensions=['jpg'])])
+    image = models.ImageField(
+        default='author_images/default_author_1.jpg',
+        upload_to='author_images',
+        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg'])]
+    )
 
     def __str__(self):
         return self.name

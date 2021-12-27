@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from .models import RoleRequest
 from django.http import HttpResponseRedirect
@@ -6,12 +7,15 @@ from django.contrib.auth.models import User, Group
 from django.contrib import messages
 from accounts.decorators import allowed_users, admin_only
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 # Create your views here.
 @admin_only
 @login_required(login_url='accounts:login')
 def role_request_list(request):
-    role_requests = RoleRequest.objects.filter(status=RoleRequest.STATUS_PENDING)
+    p = Paginator(RoleRequest.objects.filter(status=RoleRequest.STATUS_PENDING), 10)
+    page = request.GET.get('page')
+    role_requests = p.get_page(page)
     return render(request, 'role_requests/role_request_list.html', {'role_requests': role_requests})
 
 
@@ -66,4 +70,4 @@ def role_request_change_status(request, status):
         role_request.user.groups.add(group)
 
     messages.success(request, "Pomyslnie zmieniono status podania")
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect(reverse('role_requests:list'))

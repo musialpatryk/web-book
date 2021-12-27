@@ -1,35 +1,65 @@
 <div class="my-3 card container">
     <div class="card-body d-flex row">
         <div class="col-2">
-            <div class="w-100 h-100 bg-dark text-light">
-                <img src="" alt="example photo" style="width: 100%;height: auto"/>
+            <div class="w-100 h-100">
+                 <img class="img-thumbnail" src="{{ author.image.url }}" alt="author-image">
             </div>
         </div>
         <div class="col-10">
             <div class="row">
                 <div class="col-10">
                     <h2>
+
+
+                        {% if not author_request %}
                         <a class="text-decoration-none link-secondary" href="{% url 'authors:details' slug=author.slug %}">
                             {{ author.name }} {{ author.surname }}
                         </a>
+                        {% endif %}
+
+                        {% if author_request %}
+                        <span>
+                            {{ author.name }} {{ author.surname }}
+                        </span>
+                        {% endif %}
                     </h2>
-                </div>
-                <div class="col text-end">
-                    <p>{{ author.birthDate|date:"d.m.Y" }}</p>
-                </div>
-            </div>
-             <div class="row">
-                <div class="col-10">
                     <p>{{ author.description }}</p>
                 </div>
                 <div class="col text-end">
-                      <button type="submit" class="fa fa-star btn-rating {% if author.rating >= 1 %} checked {% endif %}}}"></button>
-                    <button type="submit" class="fa fa-star btn-rating {% if author.rating >= 2 %} checked {% endif %}"></button>
-                    <button type="submit" class="fa fa-star btn-rating {% if author.rating >= 3 %} checked {% endif %}"></button>
-                    <button type="submit" class="fa fa-star btn-rating {% if author.rating >= 4 %} checked {% endif %}"></button>
-                    <button type="submit" class="fa fa-star btn-rating {% if author.rating >= 5 %} checked {% endif %}"></button>
+                    <p>{{ author.birthDate|date:"d.m.Y" }}</p>
+
+                    <div class="col text-end">
+                        {% include "review_stars.html" with rating=author.rating %}
+                    </div>
+
+                     {% if request.user.is_staff and not author_request %}
+                        <div class="mt-3">
+                            <form method="POST" action="{% url 'authors:remove_author' pk=author.pk %}">
+                                {% csrf_token %}
+                                <button class="btn btn-danger">Usuń</button>
+                            </form>
+                        </div>
+                     {% endif %}
+
+
+
+
+                     {% if request.user.is_staff and author_request %}
+                        <div class="mt-3">
+                            <form method="post" action="{% url 'authors:accept' %}">
+                                {% csrf_token %}
+                                {{form.author_id}}
+                                <button type="submit" class="btn btn-success btn-sm" style="width: 100px;">Zaakceptuj</button>
+                            </form>
+                            <form method="post" class="mt-2" action="{% url 'authors:reject' %}">
+                                {% csrf_token %}
+                                {{form.author_id}}
+                                <button type="submit" class="btn btn-danger btn-sm" style="width: 100px;">Odrzuć</button>
+                            </form>
+                        </div>
+                     {% endif %}
+
                 </div>
-                <br>
             </div>
         </div>
     </div>

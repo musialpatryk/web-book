@@ -12,8 +12,20 @@
     --secondary-font: 'Hammersmith One', sans-serif
 }
 
+a {
+    text-decoration: none;
+}
+
 body{
     height:100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .nav-item {
@@ -26,10 +38,16 @@ body{
     font-size: 0.8rem !important;
 }
 
+.message-container {
+    position: fixed;
+    left: 30%;
+    right: 30%;
+    bottom: 10px;
+}
+
 /* Navbar styles */
 .brand-name {
     font-family: var(--secondary-font);
-
 }
 
 /* Login page */
@@ -51,3 +69,32 @@ body{
     background-color: inherit; !important;
     border: 0 !important;
 }
+
+/* Homepage styles */
+
+.carousel-container:nth-of-type(1) {
+    margin-bottom: 3rem;
+}
+
+.carousel-container:not(:nth-of-type(1)):not(:nth-of-type(2n)) {
+    margin: 3rem 0;
+}
+
+.carousel-container:nth-of-type(2n) {
+    background-color: var(--lt-color-gray-700);
+    color: var(--bs-body-color);
+    padding: 3rem 0;
+}
+
+.carousel-container:nth-of-type(2n) h2 {
+    color: #ffffff;
+}
+
+.carousel-inner {
+    min-height: 400px;
+}
+
+.carousel-item img {
+    filter: brightness(50%);
+}
+

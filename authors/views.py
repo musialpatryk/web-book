@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.urls import reverse
 
@@ -12,6 +12,7 @@ from .models import Author
 from django.core.paginator import Paginator
 from accounts.decorators import allowed_users, admin_only
 from django.contrib import messages
+from helpers.image_validator import validate_image
 
 
 @login_required(login_url='accounts:login')
@@ -26,8 +27,10 @@ def authors_list(request):
 @login_required(login_url='accounts:login')
 @allowed_users(allowed_roles=['viewer', 'admin'])
 def author_details(request, slug):
-    author = Author.objects.get(slug=slug)
-    # if null === book:
+    try:
+        author = Author.objects.get(slug=slug, status="A")
+    except:
+        raise Http404()
     return render(request, 'authors/authors_details.html', {'author': author})
 
 
@@ -49,12 +52,15 @@ def authors_create(request):
         authors_data = request.POST
 
         genre = Genre.objects.get(pk=int(authors_data['genre']))
+        if not validate_image(request.FILES['image']):
+            messages.success(request, "Zły format obrazka, spróbuj ponownie")
+            return HttpResponseRedirect('/')
+
         new_author = Author.objects.create_author(
             authors_data['name'],
             genre,
             authors_data['description'],
             authors_data['birthDate'],
-            authors_data['slug'],
             request.FILES['image']
         )
 

@@ -2,4 +2,34 @@
 
 {% block content %}
     <h1 class="text-center mb-5">Autor: {{author.name}} {{author.surname}}</h1>
+
+<div class="book-detail">
+    <div class="book card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-2">
+                        <div class="w-100 h-100">
+                            <img class="img-thumbnail" src="{{ author.image.url }}" alt="author-image">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="row">
+                            <h2 class="col">{{author.name}} {{author.surname}}</h2>
+
+                            <div class="col-2 mt-2 fs-5 text-end">
+                                {% include "review_stars.html" with rating=author.rating %}
+                            </div>
+                        </div>
+
+                        <h5>{{ author.birthDate|date:"d.m.Y" }}</h5>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <p>{{ author.description }}</p>
+                </div>
+            </div>
+    </div>
+</div>
 {% endblock %}
