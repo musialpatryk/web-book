@@ -24,7 +24,7 @@ BookWeb to serwis internetowy pozwalający poznawać nowe książki oraz je rece
 ## Tworzenie bazy danych od zera:
 - `python manage.py migrate`
 - `python ./commands/run-fixtures.py`
-- `python manage.py shell < commands/randomize-images.py`
+- `python manage.py shell < commands/randomize-images.py` lub alternatywnie `python manage.py shell` i `exec(open('commands/randomize-images.py').read())`
 
 ## Przydatne komendy:
 - `python manage.py migrate` - tworzenie migracji, tworzy nowe tabele w bazie

@@ -14,7 +14,7 @@ class ReviewForm(forms.Form):
 
     def __init__(self, *args, book=None, **kwargs):
         super(ReviewForm, self).__init__(*args, **kwargs)
-        self.fields['vote'].widget.attrs.update({'max': 6})
+        self.fields['vote'].widget.attrs.update({'max': 5})
         self.fields['vote'].widget.attrs.update({'min': 1})
 
         if book:
