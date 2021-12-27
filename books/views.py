@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, Http404
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render
 from django.urls import reverse
 
+from helpers.search import books_full_search, authors_full_search
 from reviews.models import Review
 from .forms.request_form import BookRequestForm
 from .forms.requests_list_form import RequestListForm
@@ -14,10 +15,6 @@ from general import mailing
 from .models import Book
 from accounts.decorators import allowed_users, admin_only
 from accounts.models import get_users
-
-from django.core.mail import send_mail
-from django.db.models import Value as V
-from django.db.models.functions import Concat
 from django.contrib import messages
 
 
@@ -139,15 +136,15 @@ def book_delete(request, pk):
 @login_required(login_url='accounts:login')
 @allowed_users(allowed_roles=['viewer', 'admin'])
 def search_book(request):
-    book_get = request.GET
-    name = book_get.get("title")
-    if Book.objects.filter(title__icontains=name, status='A').exists():
-        book = Book.objects.filter(title__icontains=name, status='A')
-        author = Author.objects.filter(book__title__icontains=name, status='A')
-        return render(request, 'books/book_search.html', {'books': book, 'authors': author})
-    elif Book.objects.filter(authors__name__icontains=name, status='A').exists():
-        book = Book.objects.filter(authors__name__icontains=name, status='A')
-        author = Author.objects.filter(name__icontains=name, status='A')
-        return render(request, 'books/book_search.html', {'books': book, 'authors': author})
-    else:
-        return render(request, 'books/book_not_found.html', {'name': name})
+    search_text = request.GET.get("search")
+
+    if search_text is None:
+        return render(request, 'books/book_not_found.html', {'name': '""'})
+
+    books = books_full_search(search_text)
+    authors = authors_full_search(search_text)
+
+    if len(books) == 0 and len(authors) == 0:
+        return render(request, 'books/book_not_found.html', {'name': search_text})
+
+    return render(request, 'searched_items.html', {'books': books, 'authors': authors})

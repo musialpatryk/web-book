@@ -12,10 +12,9 @@ class AuthorManager(models.Manager):
             genre,
             description,
             birthDate,
-            slug,
             image
     ):
-        author_slug = slugify(slug)
+        author_slug = slugify(name)
         potential_slug_duplicate_len = len(self.filter(slug=author_slug))
         if potential_slug_duplicate_len > 0:
             author_slug += '-' + str(potential_slug_duplicate_len)
