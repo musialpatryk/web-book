@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from books.models import Book
-from helpers.carousel_tool import get_most_rated_books, get_random_context, get_context
+from helpers.carousel import get_most_rated_books, get_random_context, get_context
 
 
 @login_required(login_url='accounts:login')
