@@ -52,8 +52,6 @@ def authors_create(request):
         authors_data = request.POST
 
         genre = Genre.objects.get(pk=int(authors_data['genre']))
-        print(validate_image(request.FILES['image']))
-        print(request.FILES['image'])
         if not validate_image(request.FILES['image']):
             messages.success(request, "Zły format obrazka, spróbuj ponownie")
             return HttpResponseRedirect('/')
