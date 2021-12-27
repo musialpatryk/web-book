@@ -81,8 +81,8 @@ body{
 }
 
 .carousel-container:nth-of-type(2n) {
-    background-color: var(--lt-color-gray-700);
-    color: var(--bs-body-color);
+    background-color: #2f3237;
+    color: #212529;
     padding: 3rem 0;
 }
 
