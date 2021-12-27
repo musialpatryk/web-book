@@ -48,7 +48,7 @@ class Author(AbstractEntity):
     rating = models.IntegerField(default=0)
     status = models.CharField(choices=STATUS, max_length=10, default="P")
     image = models.ImageField(
-        default='default_author_1.jpg',
+        default='author_images/default_author_1.jpg',
         upload_to='author_images',
         validators=[FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg'])]
     )
