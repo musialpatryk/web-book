@@ -7,6 +7,7 @@ from django.contrib.auth.models import User, Group
 from django.contrib import messages
 from accounts.decorators import allowed_users, admin_only
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 # Create your views here.
 @admin_only
@@ -69,4 +70,4 @@ def role_request_change_status(request, status):
         role_request.user.groups.add(group)
 
     messages.success(request, "Pomyslnie zmieniono status podania")
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect(reverse('role_requests:list'))

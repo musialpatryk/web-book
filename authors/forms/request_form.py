@@ -5,8 +5,7 @@ class AuthorRequestForm(forms.Form):
     placeholders = {
         'name': 'Imie i nazwisko',
         'description': 'Opis',
-        'birthDate': 'Data urodzenia',
-        'slug': 'Pseudonim',
+        'birthDate': 'Data urodzenia'
     }
 
     name = forms.CharField(
